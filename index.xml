@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Сорок лет - это те-же двадцать</title>
-    <link>https://platoff.github.com/index.xml</link>
+    <link>https://platoff.github.io/index.xml</link>
     <description>Recent content on Сорок лет - это те-же двадцать</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru-RU</language>
     <lastBuildDate>Wed, 14 Dec 2016 12:12:47 +0100</lastBuildDate>
-    <atom:link href="https://platoff.github.com/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://platoff.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Выхожу online</title>
-      <link>https://platoff.github.com/blog/%D0%B2%D1%8B%D1%85%D0%BE%D0%B6%D1%83-online/</link>
+      <link>https://platoff.github.io/blog/%D0%B2%D1%8B%D1%85%D0%BE%D0%B6%D1%83-online/</link>
       <pubDate>Wed, 14 Dec 2016 12:12:47 +0100</pubDate>
       
-      <guid>https://platoff.github.com/blog/%D0%B2%D1%8B%D1%85%D0%BE%D0%B6%D1%83-online/</guid>
+      <guid>https://platoff.github.io/blog/%D0%B2%D1%8B%D1%85%D0%BE%D0%B6%D1%83-online/</guid>
       <description>&lt;p&gt;Если вы это читаете, то да, я, наконец вышел в сеть. Большую часть дня я потратил на поиск движка для блога. Остановился на &lt;a href=&#34;https://gohugo.io&#34;&gt;hugo&lt;/a&gt;, поиск &amp;ldquo;темы&amp;rdquo;, ее подхачивание, редактирование и форматирование контента, выкладывание сайта и артефактов от предыдущих постов.&lt;/p&gt;
 
 &lt;p&gt;Такой день&amp;hellip; Завтра с утра бюрократия, но вторую половину дня надеюсь посвятить программированию.&lt;/p&gt;
@@ -23,10 +23,10 @@
     
     <item>
       <title>Рекрутер</title>
-      <link>https://platoff.github.com/blog/%D1%80%D0%B5%D0%BA%D1%80%D1%83%D1%82%D0%B5%D1%80/</link>
+      <link>https://platoff.github.io/blog/%D1%80%D0%B5%D0%BA%D1%80%D1%83%D1%82%D0%B5%D1%80/</link>
       <pubDate>Tue, 13 Dec 2016 18:17:52 +0100</pubDate>
       
-      <guid>https://platoff.github.com/blog/%D1%80%D0%B5%D0%BA%D1%80%D1%83%D1%82%D0%B5%D1%80/</guid>
+      <guid>https://platoff.github.io/blog/%D1%80%D0%B5%D0%BA%D1%80%D1%83%D1%82%D0%B5%D1%80/</guid>
       <description>&lt;p&gt;Сегодня не программировал, но день прошел не без мелких программистских &amp;ldquo;радостей&amp;rdquo;. Рекрутеры не контачили со мной много лет. Я думаю это потому, что мой GitHub пуст, а в &amp;ldquo;резюме&amp;rdquo; нет интересующих их слов типа JavaScript. Но стоило мне начать программировать, какая-то особо чувствительная особа унюхала свежее мясо и доебалась. Я честно говоря был несказанно рад: ведь общение с рекрутером - это уже признак того, что я становлюсь интересен как программист. Я думаю, что для практикующих программистов такие диалоги &amp;ndash; рутина, но для меня &amp;ndash; нечто новое. Вот что получилось:&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -79,10 +79,10 @@
     
     <item>
       <title>Russian Business</title>
-      <link>https://platoff.github.com/blog/russian-business/</link>
+      <link>https://platoff.github.io/blog/russian-business/</link>
       <pubDate>Mon, 12 Dec 2016 17:22:58 +0100</pubDate>
       
-      <guid>https://platoff.github.com/blog/russian-business/</guid>
+      <guid>https://platoff.github.io/blog/russian-business/</guid>
       <description>
 
 &lt;p&gt;Тег &lt;code&gt;проебал&lt;/code&gt; не совсем верен. За последние две недели я проебал только программирование - с годами мне стало сложно переключаться, вернее невозможно. Впрочем, попробую научиться, дело в практике.&lt;/p&gt;
@@ -101,10 +101,10 @@
     
     <item>
       <title>Посмотреть на Монстра</title>
-      <link>https://platoff.github.com/blog/%D0%BF%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80%D0%B5%D1%82%D1%8C-%D0%BD%D0%B0-%D0%BC%D0%BE%D0%BD%D1%81%D1%82%D1%80%D0%B0/</link>
+      <link>https://platoff.github.io/blog/%D0%BF%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80%D0%B5%D1%82%D1%8C-%D0%BD%D0%B0-%D0%BC%D0%BE%D0%BD%D1%81%D1%82%D1%80%D0%B0/</link>
       <pubDate>Sun, 27 Nov 2016 12:43:21 +0100</pubDate>
       
-      <guid>https://platoff.github.com/blog/%D0%BF%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80%D0%B5%D1%82%D1%8C-%D0%BD%D0%B0-%D0%BC%D0%BE%D0%BD%D1%81%D1%82%D1%80%D0%B0/</guid>
+      <guid>https://platoff.github.io/blog/%D0%BF%D0%BE%D1%81%D0%BC%D0%BE%D1%82%D1%80%D0%B5%D1%82%D1%8C-%D0%BD%D0%B0-%D0%BC%D0%BE%D0%BD%D1%81%D1%82%D1%80%D0%B0/</guid>
       <description>
 
 &lt;p&gt;Сегодня хочу получить полноценный dbmonster - с бегущими циферками по экрану. До текущего момента я генерировал экраны в цикле, не передавая управление браузеру, и это надо исправить. Для этого мне надо по-честному воткнуться в message loop. Замечательный emscripten все сделал, пользую &lt;code&gt;emscripten_set_main_loop&lt;/code&gt;.&lt;/p&gt;
@@ -146,20 +146,20 @@
     
     <item>
       <title>Уехал в Прагу</title>
-      <link>https://platoff.github.com/blog/%D1%83%D0%B5%D1%85%D0%B0%D0%BB-%D0%B2-%D0%BF%D1%80%D0%B0%D0%B3%D1%83/</link>
+      <link>https://platoff.github.io/blog/%D1%83%D0%B5%D1%85%D0%B0%D0%BB-%D0%B2-%D0%BF%D1%80%D0%B0%D0%B3%D1%83/</link>
       <pubDate>Sat, 26 Nov 2016 22:38:16 +0100</pubDate>
       
-      <guid>https://platoff.github.com/blog/%D1%83%D0%B5%D1%85%D0%B0%D0%BB-%D0%B2-%D0%BF%D1%80%D0%B0%D0%B3%D1%83/</guid>
+      <guid>https://platoff.github.io/blog/%D1%83%D0%B5%D1%85%D0%B0%D0%BB-%D0%B2-%D0%BF%D1%80%D0%B0%D0%B3%D1%83/</guid>
       <description>&lt;p&gt;Все таки вести этот журнал была хорошая идея &amp;ndash; сразу видно сколько дней я проебываю в никуда. В четверг улетел в Прагу. Пятница зашел в офис - поговорили с коллегами. Суббота &amp;ndash; тупо проебал, сходил пообедать, поужинать. Для моего программирования польза нулевая. Попробую что-нибудь сделать завтра.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Пора запуститься в браузере</title>
-      <link>https://platoff.github.com/blog/%D0%BF%D0%BE%D1%80%D0%B0-%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F-%D0%B2-%D0%B1%D1%80%D0%B0%D1%83%D0%B7%D0%B5%D1%80%D0%B5/</link>
+      <link>https://platoff.github.io/blog/%D0%BF%D0%BE%D1%80%D0%B0-%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F-%D0%B2-%D0%B1%D1%80%D0%B0%D1%83%D0%B7%D0%B5%D1%80%D0%B5/</link>
       <pubDate>Wed, 23 Nov 2016 11:30:59 +0100</pubDate>
       
-      <guid>https://platoff.github.com/blog/%D0%BF%D0%BE%D1%80%D0%B0-%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F-%D0%B2-%D0%B1%D1%80%D0%B0%D1%83%D0%B7%D0%B5%D1%80%D0%B5/</guid>
+      <guid>https://platoff.github.io/blog/%D0%BF%D0%BE%D1%80%D0%B0-%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F-%D0%B2-%D0%B1%D1%80%D0%B0%D1%83%D0%B7%D0%B5%D1%80%D0%B5/</guid>
       <description>
 
 &lt;p&gt;Сегодня, наконец, хочу увидеть что-нибудь в браузере.&lt;/p&gt;
@@ -333,20 +333,20 @@
     
     <item>
       <title>Проебаный день</title>
-      <link>https://platoff.github.com/blog/%D0%BF%D1%80%D0%BE%D0%B5%D0%B1%D0%B0%D0%BD%D1%8B%D0%B9-%D0%B4%D0%B5%D0%BD%D1%8C/</link>
+      <link>https://platoff.github.io/blog/%D0%BF%D1%80%D0%BE%D0%B5%D0%B1%D0%B0%D0%BD%D1%8B%D0%B9-%D0%B4%D0%B5%D0%BD%D1%8C/</link>
       <pubDate>Tue, 22 Nov 2016 11:28:50 +0100</pubDate>
       
-      <guid>https://platoff.github.com/blog/%D0%BF%D1%80%D0%BE%D0%B5%D0%B1%D0%B0%D0%BD%D1%8B%D0%B9-%D0%B4%D0%B5%D0%BD%D1%8C/</guid>
+      <guid>https://platoff.github.io/blog/%D0%BF%D1%80%D0%BE%D0%B5%D0%B1%D0%B0%D0%BD%D1%8B%D0%B9-%D0%B4%D0%B5%D0%BD%D1%8C/</guid>
       <description>&lt;p&gt;День проебан. Будем считать, что на пятый день я отдыхал. Я не Бог, я только учусь.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Немного про тестирование</title>
-      <link>https://platoff.github.com/blog/%D0%BD%D0%B5%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D1%80%D0%BE-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5/</link>
+      <link>https://platoff.github.io/blog/%D0%BD%D0%B5%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D1%80%D0%BE-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5/</link>
       <pubDate>Mon, 21 Nov 2016 20:23:41 +0100</pubDate>
       
-      <guid>https://platoff.github.com/blog/%D0%BD%D0%B5%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D1%80%D0%BE-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5/</guid>
+      <guid>https://platoff.github.io/blog/%D0%BD%D0%B5%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D1%80%D0%BE-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5/</guid>
       <description>
 
 &lt;p&gt;Сегодня не программировал, пол-дня покатался по побережью в попытке открыть счет в банке. Форма на сайте не работает - думал зайти физически, но в понедельник отделение оказалось закрыто. Вторую половину дня слегка уделил бизнесу: написал письмо коллегам и кастомерам, которое по большей части и прилагаю (за исключением коммерческих деталей).&lt;/p&gt;
@@ -404,10 +404,10 @@
     
     <item>
       <title>Virtual DOM (День 3)</title>
-      <link>https://platoff.github.com/blog/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-3/</link>
+      <link>https://platoff.github.io/blog/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-3/</link>
       <pubDate>Sun, 20 Nov 2016 10:00:56 +0100</pubDate>
       
-      <guid>https://platoff.github.com/blog/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-3/</guid>
+      <guid>https://platoff.github.io/blog/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-3/</guid>
       <description>
 
 &lt;p&gt;Сегодня хочется сделать хоть какой-то diff, и погонять dbmonster. Думаю что для начала не буду делать match детей вообще, а пропатчу их один в один. Модель данных для DBMonster генерирую каждый раз случайно - получаю примерно 3000 инстансов данных в секунду. Все замеры в этом блоге я делаю на слабеньком MacBook 12&amp;rdquo; Early 2015, компилирую с -d:release. В браузере все будет медленее (например в 10 раз) и мне нужно в принципе понять стоит ли овчина выделки.&lt;/p&gt;
@@ -543,10 +543,10 @@
     
     <item>
       <title>Virtual DOM (День 2)</title>
-      <link>https://platoff.github.com/blog/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-2/</link>
+      <link>https://platoff.github.io/blog/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-2/</link>
       <pubDate>Sat, 19 Nov 2016 11:51:56 +0100</pubDate>
       
-      <guid>https://platoff.github.com/blog/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-2/</guid>
+      <guid>https://platoff.github.io/blog/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-2/</guid>
       <description>
 
 &lt;p&gt;День второй. Вчера перед сном понял что я - дебил. Листая бумажку по faxma я понял что во второй части агоритма (построение meta-diff) все равно придется бежать по структуре, и анализировать изменения аттрибутов, как это делают virtual domы Elm, Virtual DOM, React и прочие. Та часть, которую я реализовывал вчера не выглядит сильно полезной в этом процессе. Возможно она будет полезна частично, например при сравнении детей на отдельно взятом уровне (надо будет мерять производительность), но уже сейчас мне кажется что подход не хорош, и надо решать задачу в лоб, как все.&lt;/p&gt;
@@ -601,10 +601,10 @@
     
     <item>
       <title>Начинаю работать: Faxma</title>
-      <link>https://platoff.github.com/blog/%D0%BD%D0%B0%D1%87%D0%B8%D0%BD%D0%B0%D1%8E-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%82%D1%8C-faxma/</link>
+      <link>https://platoff.github.io/blog/%D0%BD%D0%B0%D1%87%D0%B8%D0%BD%D0%B0%D1%8E-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%82%D1%8C-faxma/</link>
       <pubDate>Fri, 18 Nov 2016 10:30:35 +0100</pubDate>
       
-      <guid>https://platoff.github.com/blog/%D0%BD%D0%B0%D1%87%D0%B8%D0%BD%D0%B0%D1%8E-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%82%D1%8C-faxma/</guid>
+      <guid>https://platoff.github.io/blog/%D0%BD%D0%B0%D1%87%D0%B8%D0%BD%D0%B0%D1%8E-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%82%D1%8C-faxma/</guid>
       <description>
 
 &lt;p&gt;Сегодня, после многих месяцев прокрастниации и страданий на тему что программистом мне уже не быть, сел за работу. Пожалуй начну с Virtual DOM. Мельком глядя на существующие реализации Virtual DOM, понимаю что там вообще нет никакого rocket science - чуваки в лоб сравнивают деревяху применяя разнообразные эвристики, подробнее про это дело есть &lt;a href=&#34;https://medium.com/@localvoid/how-to-win-in-web-framework-benchmarks-8bc31af76ce7&#34;&gt;хорошая статья&lt;/a&gt;.&lt;/p&gt;
@@ -742,10 +742,10 @@
     
     <item>
       <title>Обо мне</title>
-      <link>https://platoff.github.com/about/</link>
+      <link>https://platoff.github.io/about/</link>
       <pubDate>Wed, 12 Oct 2016 14:01:05 +0300</pubDate>
       
-      <guid>https://platoff.github.com/about/</guid>
+      <guid>https://platoff.github.io/about/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Сорок лет - это те-же двадцать, дело только в цене. В сорок рваться из резерваций интересней вдвойне. &amp;ndash; Олег Медведев&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -768,13 +768,13 @@
     
     <item>
       <title>Ебал я в рот ваш JavaScript</title>
-      <link>https://platoff.github.com/blog/%D0%B5%D0%B1%D0%B0%D0%BB-%D1%8F-%D0%B2-%D1%80%D0%BE%D1%82-%D0%B2%D0%B0%D1%88-javascript/</link>
+      <link>https://platoff.github.io/blog/%D0%B5%D0%B1%D0%B0%D0%BB-%D1%8F-%D0%B2-%D1%80%D0%BE%D1%82-%D0%B2%D0%B0%D1%88-javascript/</link>
       <pubDate>Tue, 11 Oct 2016 17:04:14 +0300</pubDate>
       
-      <guid>https://platoff.github.com/blog/%D0%B5%D0%B1%D0%B0%D0%BB-%D1%8F-%D0%B2-%D1%80%D0%BE%D1%82-%D0%B2%D0%B0%D1%88-javascript/</guid>
+      <guid>https://platoff.github.io/blog/%D0%B5%D0%B1%D0%B0%D0%BB-%D1%8F-%D0%B2-%D1%80%D0%BE%D1%82-%D0%B2%D0%B0%D1%88-javascript/</guid>
       <description>
 
-&lt;p&gt;Моя первичная задача - научится делать веб-приложения (см. &lt;a href=&#34;https://platoff.github.com/about/&#34;&gt;Обо мне&lt;/a&gt;), и не охуеть от этого. Чувствую себя абсолютным ламером (не знаю говорят ли сейчас так, или это ругательство осталось в 90-х). Раньше я смеялся над людьми не способными разобраться с технологиями/проектами, но теперь я и сам достиг их уровня. Непонимая чего писать и с чего начинать, я купил курс (старость) на &lt;a href=&#34;https://egghead.io&#34;&gt;https://egghead.io&lt;/a&gt; - и пошел с самого начала.&lt;/p&gt;
+&lt;p&gt;Моя первичная задача - научится делать веб-приложения (см. &lt;a href=&#34;https://platoff.github.io/about/&#34;&gt;Обо мне&lt;/a&gt;), и не охуеть от этого. Чувствую себя абсолютным ламером (не знаю говорят ли сейчас так, или это ругательство осталось в 90-х). Раньше я смеялся над людьми не способными разобраться с технологиями/проектами, но теперь я и сам достиг их уровня. Непонимая чего писать и с чего начинать, я купил курс (старость) на &lt;a href=&#34;https://egghead.io&#34;&gt;https://egghead.io&lt;/a&gt; - и пошел с самого начала.&lt;/p&gt;
 
 &lt;p&gt;Начинаю с туториала “Building a React.js App: Up and Running with React and Webpack”, ну то есть я написал сотню строк JS в 2000 году. На этом мое познание JavaScript закончилось, что такое Webpack я знаю не больше вашей мамы. Ах да, поставил себе atom и node.js. Поехали… моя ближайшая задача - сделать Hello World app на react.js&lt;/p&gt;
 

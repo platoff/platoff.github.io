@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Сорок лет - это те-же двадцать</title>
-    <link>https://platoff.github.com/tags/%D0%BC%D0%B5%D0%BD%D0%B5%D0%B4%D0%B6%D0%BC%D0%B5%D0%BD%D1%82/index.xml</link>
+    <link>https://platoff.github.io/tags/%D0%BC%D0%B5%D0%BD%D0%B5%D0%B4%D0%B6%D0%BC%D0%B5%D0%BD%D1%82/index.xml</link>
     <description>Recent content on Сорок лет - это те-же двадцать</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru-RU</language>
-    <atom:link href="https://platoff.github.com/tags/%D0%BC%D0%B5%D0%BD%D0%B5%D0%B4%D0%B6%D0%BC%D0%B5%D0%BD%D1%82/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://platoff.github.io/tags/%D0%BC%D0%B5%D0%BD%D0%B5%D0%B4%D0%B6%D0%BC%D0%B5%D0%BD%D1%82/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Немного про тестирование</title>
-      <link>https://platoff.github.com/blog/%D0%BD%D0%B5%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D1%80%D0%BE-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5/</link>
+      <link>https://platoff.github.io/blog/%D0%BD%D0%B5%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D1%80%D0%BE-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5/</link>
       <pubDate>Mon, 21 Nov 2016 20:23:41 +0100</pubDate>
       
-      <guid>https://platoff.github.com/blog/%D0%BD%D0%B5%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D1%80%D0%BE-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5/</guid>
+      <guid>https://platoff.github.io/blog/%D0%BD%D0%B5%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D1%80%D0%BE-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5/</guid>
       <description>
 
 &lt;p&gt;Сегодня не программировал, пол-дня покатался по побережью в попытке открыть счет в банке. Форма на сайте не работает - думал зайти физически, но в понедельник отделение оказалось закрыто. Вторую половину дня слегка уделил бизнесу: написал письмо коллегам и кастомерам, которое по большей части и прилагаю (за исключением коммерческих деталей).&lt;/p&gt;

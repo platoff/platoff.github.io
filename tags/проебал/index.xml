@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Сорок лет - это те-же двадцать</title>
-    <link>https://platoff.github.com/tags/%D0%BF%D1%80%D0%BE%D0%B5%D0%B1%D0%B0%D0%BB/index.xml</link>
+    <link>https://platoff.github.io/tags/%D0%BF%D1%80%D0%BE%D0%B5%D0%B1%D0%B0%D0%BB/index.xml</link>
     <description>Recent content on Сорок лет - это те-же двадцать</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru-RU</language>
-    <atom:link href="https://platoff.github.com/tags/%D0%BF%D1%80%D0%BE%D0%B5%D0%B1%D0%B0%D0%BB/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://platoff.github.io/tags/%D0%BF%D1%80%D0%BE%D0%B5%D0%B1%D0%B0%D0%BB/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Russian Business</title>
-      <link>https://platoff.github.com/blog/russian-business/</link>
+      <link>https://platoff.github.io/blog/russian-business/</link>
       <pubDate>Mon, 12 Dec 2016 17:22:58 +0100</pubDate>
       
-      <guid>https://platoff.github.com/blog/russian-business/</guid>
+      <guid>https://platoff.github.io/blog/russian-business/</guid>
       <description>
 
 &lt;p&gt;Тег &lt;code&gt;проебал&lt;/code&gt; не совсем верен. За последние две недели я проебал только программирование - с годами мне стало сложно переключаться, вернее невозможно. Впрочем, попробую научиться, дело в практике.&lt;/p&gt;
@@ -32,10 +32,10 @@
     
     <item>
       <title>Уехал в Прагу</title>
-      <link>https://platoff.github.com/blog/%D1%83%D0%B5%D1%85%D0%B0%D0%BB-%D0%B2-%D0%BF%D1%80%D0%B0%D0%B3%D1%83/</link>
+      <link>https://platoff.github.io/blog/%D1%83%D0%B5%D1%85%D0%B0%D0%BB-%D0%B2-%D0%BF%D1%80%D0%B0%D0%B3%D1%83/</link>
       <pubDate>Sat, 26 Nov 2016 22:38:16 +0100</pubDate>
       
-      <guid>https://platoff.github.com/blog/%D1%83%D0%B5%D1%85%D0%B0%D0%BB-%D0%B2-%D0%BF%D1%80%D0%B0%D0%B3%D1%83/</guid>
+      <guid>https://platoff.github.io/blog/%D1%83%D0%B5%D1%85%D0%B0%D0%BB-%D0%B2-%D0%BF%D1%80%D0%B0%D0%B3%D1%83/</guid>
       <description>&lt;p&gt;Все таки вести этот журнал была хорошая идея &amp;ndash; сразу видно сколько дней я проебываю в никуда. В четверг улетел в Прагу. Пятница зашел в офис - поговорили с коллегами. Суббота &amp;ndash; тупо проебал, сходил пообедать, поужинать. Для моего программирования польза нулевая. Попробую что-нибудь сделать завтра.&lt;/p&gt;
 </description>
     </item>
