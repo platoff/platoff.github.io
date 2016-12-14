@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Don&#39;t panic">
+
+<base href="https://platoff.github.com/">
+<title>
+
+
+     Virtual DOM (День 3) 
+
+</title>
+<link rel="canonical" href="https://platoff.github.com/blog/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-3/">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://platoff.github.com/css/reset.css">
+<link rel="stylesheet" href="https://platoff.github.com/css/pygments.css">
+<link rel="stylesheet" href="https://platoff.github.com/css/main.css">
+
+
+    <link rel="stylesheet" href="https://platoff.github.com/css/override.css">
+
+
+
+<link rel="shortcut icon"
+
+    href="https://platoff.github.com/img/leaf.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="ru">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            
+              <a href="https://platoff.github.com/"><img class="avatar" src="https://platoff.github.com/img/avatar.jpg" /></a>
+            
+            <a href="https://platoff.github.com/"><div class="name">Андрей Платов</div></a>
+            <nav>
+                <ul>
+                    <a href="https://platoff.github.com/blog/"><li>Журнал</li></a>
+                    <a href="https://platoff.github.com/about/"><li>Обо мне</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/platoff" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/platoff" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/platov" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+            <a href="mailto:andrey@xored.com">
+                <i class="icon ion-ios-email larger"></i>
+            </a>
+        
+
+        
+            <a href="https://platoff.github.com/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Virtual DOM (День 3)
+
+</div>
+
+                    <div class="initials"><a href="https://platoff.github.com/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Sun Nov 20 2016 10:00:56 CET">Nov 20, 2016</div>
+                    <div class="reading-time"><div class="middot"></div>5 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<p>Сегодня хочется сделать хоть какой-то diff, и погонять dbmonster. Думаю что для начала не буду делать match детей вообще, а пропатчу их один в один. Модель данных для DBMonster генерирую каждый раз случайно - получаю примерно 3000 инстансов данных в секунду. Все замеры в этом блоге я делаю на слабеньком MacBook 12&rdquo; Early 2015, компилирую с -d:release. В браузере все будет медленее (например в 10 раз) и мне нужно в принципе понять стоит ли овчина выделки.</p>
+
+<h1 id="dbmonster">DBMonster</h1>
+
+<p>Код готов, и конечно такая генерация DOM совсем не для ручек - выглядит оно вот так:</p>
+<div class="highlight"><pre><code class="language-Nimrod" data-lang="Nimrod"><span></span><span class="k">proc </span><span class="nf">render</span><span class="o">*</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Data</span><span class="p">,</span> <span class="n">builder</span><span class="p">:</span> <span class="kd">var</span> <span class="n">DOMBuilder</span><span class="p">)</span> <span class="o">=</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">openTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">.</span><span class="n">table</span><span class="p">)</span> <span class="c"># table</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="n">Attr</span><span class="p">.</span><span class="n">class</span><span class="p">,</span> <span class="s">&quot;table table-striped latest-data&quot;</span><span class="p">)</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">openTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">.</span><span class="n">tbody</span><span class="p">)</span> <span class="c"># tbody</span>
+  <span class="k">for</span> <span class="n">db</span> <span class="ow">in</span> <span class="n">data</span><span class="p">.</span><span class="n">databases</span><span class="p">:</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">openTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">.</span><span class="n">tr</span><span class="p">)</span> <span class="c"># tr</span>
+
+    <span class="n">builder</span><span class="p">.</span><span class="n">openTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">.</span><span class="n">td</span><span class="p">)</span> <span class="c"># td</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="n">Attr</span><span class="p">.</span><span class="n">class</span><span class="p">,</span> <span class="s">&quot;dbname&quot;</span><span class="p">)</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">textString</span><span class="p">(</span><span class="n">db</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">closeTag</span><span class="p">()</span> <span class="c"># /td</span>
+
+    <span class="k">let</span> <span class="n">length</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">queries</span><span class="p">.</span><span class="n">len</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">openTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">.</span><span class="n">td</span><span class="p">)</span> <span class="c"># td</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="n">Attr</span><span class="p">.</span><span class="n">class</span><span class="p">,</span> <span class="s">&quot;query-count&quot;</span><span class="p">)</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">openTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">.</span><span class="n">span</span><span class="p">)</span> <span class="c">#span</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="n">Attr</span><span class="p">.</span><span class="n">class</span><span class="p">,</span> <span class="n">className</span><span class="p">(</span><span class="n">db</span><span class="p">))</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">textString</span><span class="p">(</span><span class="o">$</span><span class="n">length</span><span class="p">)</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">closeTag</span><span class="p">()</span> <span class="c"># /span</span>
+    <span class="n">builder</span><span class="p">.</span><span class="n">closeTag</span><span class="p">()</span> <span class="c"># /td</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="mf">0</span><span class="p">..</span><span class="mi">4</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">:</span>
+        <span class="k">let</span> <span class="n">query</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">queries</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">openTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">.</span><span class="n">td</span><span class="p">)</span> <span class="c"># td</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="n">Attr</span><span class="p">.</span><span class="n">class</span><span class="p">,</span> <span class="n">className</span><span class="p">(</span><span class="n">query</span><span class="p">))</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">textString</span><span class="p">(</span><span class="n">formatFloat</span><span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">elapsed</span><span class="p">,</span> <span class="n">ffDecimal</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">openTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">.`</span><span class="ow">div</span><span class="p">`)</span> <span class="c"># div</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="n">Attr</span><span class="p">.</span><span class="n">class</span><span class="p">,</span> <span class="s">&quot;popover left&quot;</span><span class="p">)</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">openTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">.`</span><span class="ow">div</span><span class="p">`)</span> <span class="c"># div</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="n">Attr</span><span class="p">.</span><span class="n">class</span><span class="p">,</span> <span class="s">&quot;popover-content&quot;</span><span class="p">)</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">textString</span><span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">closeTag</span><span class="p">()</span> <span class="c"># /div</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">openTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">.`</span><span class="ow">div</span><span class="p">`)</span> <span class="c"># div</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="n">Attr</span><span class="p">.</span><span class="n">class</span><span class="p">,</span> <span class="s">&quot;arrow&quot;</span><span class="p">)</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">closeTag</span><span class="p">()</span> <span class="c"># /div</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">closeTag</span><span class="p">()</span> <span class="c"># /div</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">closeTag</span><span class="p">()</span> <span class="c"># /td</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">openTag</span><span class="p">(</span><span class="n">Tag</span><span class="p">.</span><span class="n">td</span><span class="p">)</span> <span class="c"># td</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="n">Attr</span><span class="p">.</span><span class="n">class</span><span class="p">,</span> <span class="s">&quot;Query&quot;</span><span class="p">)</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">attr</span><span class="p">(</span><span class="n">Attr</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="s">&quot;40&quot;</span><span class="p">)</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">text</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+        <span class="n">builder</span><span class="p">.</span><span class="n">closeTag</span><span class="p">()</span> <span class="c"># /td</span>
+
+    <span class="n">builder</span><span class="p">.</span><span class="n">closeTag</span><span class="p">()</span> <span class="c"># /tr</span>
+
+  <span class="n">builder</span><span class="p">.</span><span class="n">closeTag</span><span class="p">()</span> <span class="c"># /tbody</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">closeTag</span><span class="p">()</span> <span class="c"># /table</span>
+</code></pre></div>
+
+<p>Немного текущей статистики: дервяха занимает 325К в памяти включая 25К нестатичных строчек (текстовые ноды). Генерирую 1000 таких деревях в секунду и похоже уже подхожу к пределу (если замедлится в 10 раз в браузере - это будет 10ms на деревяху, а нам еще делать diff). Сейчас подстрахуюсь и посмотрю как все это будет работать в браузере, а пока надо пообедать.</p>
+
+<h1 id="скорость">Скорость</h1>
+
+<p>Начинаю напрягаться. Во первых пришлось отключить Nim GC - просто падало. Без GC моя node.js v4.1.1 (не знаю пока насколько она стара) показала 7.2 ms на итерацию (а значит я уже приближаюсь к установленному мной пределу в <sup>1</sup>&frasl;<sub>60</sub>-ю секунды). Пока не знаю сколько из этих миллисекунд занимает генерация модели. Сафари порадовал - 5.5 ms на итерацию. Скрещиваю пальцы и пробую Chrome (54.0.2840.98) - 7-8 ms. Ебаный в рот, думаю под это дело скачать FireFox. Chrome 57.0.2926.0 canary - 7-8 ms. Тем временем выясняю что модель генерируется половину времени (3.5ms на V8 и 2.3ms Safari). Столько же генерирую деревяху.</p>
+
+<p>Скачал Firefox 50.0 - ведет себя как полная жопа - подвисает и 15ms на итерацию. Либо я его не умею готовить, либо с Firefox мне не по пути&hellip; Вообще ситуация с FireFox странная - прогнал перформанс тесты asm.js <a href="http://kripken.github.io/Massive">http://kripken.github.io/Massive</a> - Firefox у меня показывает гораздо лучшие результаты по сравнению с Chrome. Может в моем случае, и поскольку мой скрипт пускается сразу просле загрузки страницы Firefox &ldquo;не успел&rdquo; включить свой JIT, AOT, или чо он там включает. Как бы там ни было, и пока у меня остается теоретическая возможность выдать 60 FPS на Safari и Chrome, я продолжу. Остается за 8ms сделать diff, применить patch, и дать браузеру возможность все это дело отрисовать :). Звучит unreal, но буду пробовать.</p>
+
+<h1 id="баг-или-data-alignment-is-still-important">Баг (или Data alignment is still important)</h1>
+
+<p>Сделал печать рендеренного HTML - надо же постореть наконец что там генерится. И конечно не обошлось без багов :). Nim (умница) делает enum длины достаточной для того чтобы хранить все значения. Я пока использую enum для тегов и аттрибутов и при их записи в выхлоп писал один байт (в башке я держал что будет int). В результате все перекособочилось, но радость не в этом - дело в том что из за бага я читал unaligned data. Где то мне попадалась инфа что современным процам плевать - но у меня проц видимо старый. Нативный dbmonster теперь рендерит модель и деревяху за 0.9ms. NodeJS за 6.2ms. Мачо Safari за 4.2 :) Да, кстати бага не повлияла на количество памяти которое жрет деревяха (размер ноды я считал сам).</p>
+
+<h1 id="заход-со-стороны-браузера">Заход со стороны браузера</h1>
+
+<p>До сих пор я не трогал непоянтный мне JavaScript, но руки вдруг зачесались увидить что-нибудь в браузере. Построить DOM по моей деревяхе будет тривиальной задачей, но есть варианты в интеграции с JavaScript миром. Для начала попробую самое простое - читать asm.js heap из JS и строить DOM. Должно быть не намного сложнее простой его распечатки:</p>
+<div class="highlight"><pre><code class="language-Nimrod" data-lang="Nimrod"><span></span><span class="k">proc </span><span class="nf">toHtml</span><span class="o">*</span><span class="p">(</span><span class="n">e</span><span class="p">:</span> <span class="n">Element</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="kd">var</span> <span class="kt">string</span><span class="p">,</span> <span class="n">level</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span> <span class="o">=</span>
+  <span class="n">output</span><span class="p">.</span><span class="n">add</span> <span class="n">spaces</span><span class="p">(</span><span class="n">level</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="n">output</span><span class="p">.</span><span class="n">add</span> <span class="sc">&#39;&lt;&#39;</span>
+  <span class="n">output</span><span class="p">.</span><span class="n">add</span> <span class="o">$</span><span class="n">Tag</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">tag</span><span class="p">)</span>
+  <span class="k">let</span> <span class="n">attrs</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">attrs</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="mf">0</span><span class="p">..</span><span class="o">&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">nAttrs</span><span class="p">:</span>
+    <span class="n">output</span><span class="p">.</span><span class="n">add</span> <span class="sc">&#39; &#39;</span>
+    <span class="n">output</span><span class="p">.</span><span class="n">add</span> <span class="o">$</span><span class="n">Attr</span><span class="p">(</span><span class="n">attrs</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">.</span><span class="n">attr</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">.</span><span class="n">add</span> <span class="s">&quot;=</span><span class="se">\&quot;</span><span class="s">&quot;</span>
+    <span class="n">output</span><span class="p">.</span><span class="n">add</span> <span class="n">attrs</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">.</span><span class="n">value</span>
+    <span class="n">output</span><span class="p">.</span><span class="n">add</span> <span class="sc">&#39;&quot;&#39;</span>
+  <span class="k">if</span> <span class="n">e</span><span class="p">.</span><span class="n">nKids</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">output</span><span class="p">.</span><span class="n">add</span> <span class="s">&quot;/&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">output</span><span class="p">.</span><span class="n">add</span> <span class="s">&quot;&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+    <span class="k">let</span> <span class="n">kids</span> <span class="o">=</span> <span class="n">e</span><span class="p">.</span><span class="n">kids</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="mf">0</span><span class="p">..</span><span class="o">&lt;</span> <span class="n">e</span><span class="p">.</span><span class="n">nKids</span><span class="p">:</span>
+      <span class="n">toHtml</span><span class="p">(</span><span class="n">kids</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">.</span><span class="n">add</span> <span class="n">spaces</span><span class="p">(</span><span class="n">level</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">.</span><span class="n">add</span> <span class="s">&quot;&lt;/&quot;</span>
+    <span class="n">output</span><span class="p">.</span><span class="n">add</span> <span class="o">$</span><span class="n">Tag</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">tag</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">.</span><span class="n">add</span> <span class="s">&quot;&gt;</span><span class="se">\n</span><span class="s">&quot;</span>
+</code></pre></div>
+
+<p>Выглядить это будет примерно так: добавляем библиотку к emscripten runtime:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">mergeInto</span><span class="p">(</span><span class="nx">LibraryManager</span><span class="p">.</span><span class="nx">library</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">JSrender</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">p</span> <span class="o">=</span> <span class="nx">p</span><span class="o">|</span><span class="mi">0</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hello from emscripten: &quot;</span><span class="p">,</span> <span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)])</span>
+    <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hello from emscripten: &quot;</span><span class="p">,</span> <span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)])</span>    
+  <span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div>
+
+<p>Из nim все просто:</p>
+<div class="highlight"><pre><code class="language-Nimrod" data-lang="Nimrod"><span></span><span class="k">proc </span><span class="nf">JSrender</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="k">ptr</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{.</span><span class="n">importc</span><span class="p">.}</span>
+<span class="kd">var</span> <span class="n">x</span> <span class="o">=</span> <span class="o">[</span><span class="mi">42</span><span class="p">,</span> <span class="mi">777</span><span class="p">,</span> <span class="mi">100</span><span class="o">]</span>
+<span class="n">JSrender</span><span class="p">(</span><span class="k">cast</span><span class="o">[</span><span class="k">ptr</span> <span class="kt">int</span><span class="o">]</span><span class="p">(</span><span class="k">addr</span> <span class="n">x</span><span class="p">))</span>
+</code></pre></div>
+
+<h1 id="ебать-мой-хуй-сука-карл">Ебать мой хуй сука, Карл</h1>
+
+<p>Думал перед сном накидать рендеринг на JS - но хуй то там. Порт toHtml в тупую не работает - сносит крышу на некотором уровне рекурсии. Я уж подумал почитать как там у JavaScript дела с рекурсией (но по всем понятиям должно быть хорошо), и тут понимаю что портится переменная цикла:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span>  <span class="kd">function</span> <span class="nx">renderElement</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span>
+        <span class="k">for</span> <span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">kids</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">renderElement</span><span class="p">(</span><span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)]);</span>
+          <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">...</span>
+  <span class="p">}</span>
+</code></pre></div>
+
+<p>Еб вашу мать - эта i оказывается глобальная. Исправил на <code>for (var i=0; i&lt;kids; i++)</code> - все хорошо. Буду остерегаться. А еще говорили программируя на С можно легко выстрелить себе в ногу - тут с JS можно яйца себе в два счета отстрелить.</p>
+
+<p>Результаты под тегом <code>day-3</code> <a href="https://github.com/platoff/faxma/tree/day-3">https://github.com/platoff/faxma/tree/day-3</a>.</p>
+
+                <br>
+                <p><a href="https://platoff.github.com/blog/">Назад, к записям</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'platoff';
+    var disqus_identifier = 'https:\/\/platoff.github.com\/blog\/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-3\/';
+    var disqus_title = 'Virtual DOM (День 3)';
+    var disqus_url = 'https:\/\/platoff.github.com\/blog\/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-3\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+</body>
+</html>
+

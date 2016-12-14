@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Don&#39;t panic">
+
+<base href="https://platoff.github.com/">
+<title>
+
+
+     Пора запуститься в браузере 
+
+</title>
+<link rel="canonical" href="https://platoff.github.com/blog/%D0%BF%D0%BE%D1%80%D0%B0-%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F-%D0%B2-%D0%B1%D1%80%D0%B0%D1%83%D0%B7%D0%B5%D1%80%D0%B5/">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://platoff.github.com/css/reset.css">
+<link rel="stylesheet" href="https://platoff.github.com/css/pygments.css">
+<link rel="stylesheet" href="https://platoff.github.com/css/main.css">
+
+
+    <link rel="stylesheet" href="https://platoff.github.com/css/override.css">
+
+
+
+<link rel="shortcut icon"
+
+    href="https://platoff.github.com/img/leaf.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="ru">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            
+              <a href="https://platoff.github.com/"><img class="avatar" src="https://platoff.github.com/img/avatar.jpg" /></a>
+            
+            <a href="https://platoff.github.com/"><div class="name">Андрей Платов</div></a>
+            <nav>
+                <ul>
+                    <a href="https://platoff.github.com/blog/"><li>Журнал</li></a>
+                    <a href="https://platoff.github.com/about/"><li>Обо мне</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/platoff" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/platoff" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/platov" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+            <a href="mailto:andrey@xored.com">
+                <i class="icon ion-ios-email larger"></i>
+            </a>
+        
+
+        
+            <a href="https://platoff.github.com/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Пора запуститься в браузере
+
+</div>
+
+                    <div class="initials"><a href="https://platoff.github.com/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Wed Nov 23 2016 11:30:59 CET">Nov 23, 2016</div>
+                    <div class="reading-time"><div class="middot"></div>4 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<p>Сегодня, наконец, хочу увидеть что-нибудь в браузере.</p>
+
+<h1 id="moй-первый-javascript">Moй первый JavaScript</h1>
+
+<p>Для начала, могу сказать что я вообще не знаю как работают scopes в JavaScript (и моя предыдущая проблема с переменной цикла без var тому пример), я решил для начала вывести DOM в консоль, и для этого погуглил функцию вывода n пробелов (я уже веду себя как настоящий JS-разработчик, не начав программировать). Реализация вылезла следующая:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">space</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Тут я полностью охуел и понял, что JS-программистом мне не быть никогда. Я просто не смогу такое придумать - в прошлом я не протоптал ни одной тропинки в мозгу, которая могла бы привести к такому решению задачи. И, честно говоря, протаптывать такие тропинки (учиться) мне пока не хочется. Поэтому в пизду - будем сразу вываливать DOM.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">mergeInto</span><span class="p">(</span><span class="nx">LibraryManager</span><span class="p">.</span><span class="nx">library</span><span class="p">,</span> <span class="p">{</span>
+
+  <span class="nx">$renderElement</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">p</span> <span class="o">=</span> <span class="nx">p</span> <span class="o">|</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="kr">const</span> <span class="nx">tags</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="s2">&quot;DOCUMENT_ROOT&quot;</span><span class="p">,</span> <span class="s2">&quot;TEXT&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;button&quot;</span><span class="p">,</span> <span class="s2">&quot;div&quot;</span><span class="p">,</span> <span class="s2">&quot;h1&quot;</span><span class="p">,</span> <span class="s2">&quot;header&quot;</span><span class="p">,</span> <span class="s2">&quot;hr&quot;</span><span class="p">,</span> <span class="s2">&quot;input&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="s2">&quot;li&quot;</span><span class="p">,</span> <span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s2">&quot;section&quot;</span><span class="p">,</span> <span class="s2">&quot;span&quot;</span><span class="p">,</span> <span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="s2">&quot;tbody&quot;</span><span class="p">,</span> <span class="s2">&quot;td&quot;</span><span class="p">,</span> <span class="s2">&quot;tr&quot;</span><span class="p">,</span> <span class="s2">&quot;ul&quot;</span>
+    <span class="p">];</span>
+
+    <span class="kr">const</span> <span class="nx">A</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;TEXT&quot;</span><span class="p">,</span> <span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;for&quot;</span><span class="p">,</span> <span class="s2">&quot;placeholder&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">];</span>
+
+    <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)];</span>
+    <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">kids</span> <span class="o">=</span> <span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)];</span>
+    <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">attrs</span> <span class="o">=</span> <span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)];</span>
+    <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">e</span><span class="p">;</span>
+    <span class="k">switch</span><span class="p">(</span><span class="nx">t</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;render DOCUMENT_ROOT&quot;</span><span class="p">);</span>
+        <span class="nx">e</span> <span class="o">=</span> <span class="nx">createTextNode</span><span class="p">(</span><span class="s2">&quot;error: DOCUMENT ROOT HERE&quot;</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+        <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span> <span class="c1">//attrid == text</span>
+        <span class="nx">e</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">Pointer_stringify</span><span class="p">(</span><span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)]));</span>
+        <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+      <span class="k">default</span><span class="o">:</span>
+        <span class="nx">e</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="nx">tags</span><span class="p">[</span><span class="nx">t</span><span class="p">]);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">attrs</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)];</span>
+          <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
+          <span class="kd">var</span> <span class="nx">v</span> <span class="o">=</span> <span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)];</span>
+          <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
+          <span class="nx">e</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="nx">A</span><span class="p">[</span><span class="nx">a</span><span class="p">],</span> <span class="nx">Pointer_stringify</span><span class="p">(</span><span class="nx">v</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">kids</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+          <span class="kd">var</span> <span class="nx">kid</span> <span class="o">=</span> <span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)];</span>
+          <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>          
+          <span class="nx">e</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">renderElement</span><span class="p">(</span><span class="nx">kid</span><span class="p">)</span> <span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">e</span><span class="p">;</span>
+  <span class="p">},</span>
+
+  <span class="nx">JSrender</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">p</span> <span class="o">=</span> <span class="nx">p</span> <span class="o">|</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">root</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;app&quot;</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Hello from emscripten: &quot;</span><span class="p">,</span> <span class="nx">root</span><span class="p">.</span><span class="nx">childElementCount</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">renderElement</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">root</span><span class="p">.</span><span class="nx">childElementCount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">root</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">app</span> <span class="p">);</span>
+    <span class="p">}</span>          
+  <span class="p">},</span>
+  <span class="nx">JSrender__deps</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;$renderElement&quot;</span><span class="p">],</span>
+<span class="p">})</span>
+</code></pre></div>
+
+<p>Я намеренно вываливаю DOM на экран лишь один раз - хочу замерить генерацию JS DOM off-screen. Ну что-ж: 18.5 ms на итерацию в Safari (это притом что asm.js часть справилась за 4.2ms). Chrome: хром вообще охуел от того что я ему сунул, пришлось считать на 250 итерациях - 75ms на итерацию. Это вообще ни в какие ворота, но как бы радует что asm.js часть все делает за 7.5ms.</p>
+
+<p>Из &ldquo;тяжелого&rdquo; у меня в цикле только <code>Pointer_stringify</code>, который работает с UTF-8, пробую заменить на более быстрый <code>AsciiToString</code>, что, впрочем не совсем верно, но надо посмотреть. Safari - 17.1ms. Выйграл миллисекунду, и понятно, что дело не в &ldquo;математике&rdquo;, а в большом количестве создаваемых и собираемых сборщиком мусора нод. Вот он корень зла, и подтверждение того, что вроде бы Virtual DOM - нужная вещь. Для проверки, отключил все операции с JS DOM - 6.9ms на итерацию.</p>
+
+<p>Ну что-ж остался основной ингридиент - diff/patch, и наступит момент истины.</p>
+
+<h1 id="момент-истины">Момент истины</h1>
+
+<p>Итак, примитивный (не значит что медленный) diff реализован, запускаю без UI. На, нахуй! 1.3ms на итерацию нативный код, 7.8ms на итерацию в V8 (node.js). Это генерация модели + посторение DOM + простроение Diff. Какой-то запас еще есть. Осталось патчить DOM в браузере.</p>
+
+<h3 id="21-54-центрально-европейского-времени">21:54 центрально-европейского времени</h3>
+
+<p>Готово применение патча в браузере - <code>9.8ms</code> на итерацию! в Safari. Рано радоваться, поскольку итерация не отрисовывается (я не передаю управление в main loop), отрисовывается только результат последней. Но время обнадеживает: думаю что до 8ms эта история оптимизируется, 8ms оставим на отрисовку, и здравствуй 60 FPS. Правда Chrome дает <code>14ms</code>, но будем смотреть - сейчас все довольно схематично.</p>
+
+<p>Выглядит примерно так:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span>  <span class="nx">JSrender</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">p</span> <span class="o">=</span> <span class="nx">p</span> <span class="o">|</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;app&quot;</span><span class="p">);</span>
+    <span class="c1">//console.log(&quot;RENDER: &quot;, p);</span>
+    <span class="c1">// p is PATCH address</span>
+    <span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">cmd</span> <span class="o">=</span> <span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)]</span> <span class="o">|</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="c1">//console.log(&quot;cmd: &quot;, cmd);</span>
+      <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
+      <span class="k">switch</span><span class="p">(</span><span class="nx">cmd</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="c1">// HALT</span>
+          <span class="k">return</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="c1">// NAV_UP</span>
+          <span class="kd">var</span> <span class="nx">times</span> <span class="o">=</span> <span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)]</span> <span class="o">|</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
+          <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">times</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="nx">element</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">2</span><span class="o">:</span> <span class="c1">// NAV_KID</span>
+          <span class="kd">var</span> <span class="nx">nkid</span> <span class="o">=</span> <span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)]</span> <span class="o">|</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
+          <span class="nx">element</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="nx">nkid</span><span class="p">];</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">3</span><span class="o">:</span> <span class="c1">// NAV_PARENT</span>
+          <span class="nx">element</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">4</span><span class="o">:</span> <span class="c1">// NAV_GRAND_PARENT</span>
+          <span class="nx">element</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">5</span><span class="o">:</span> <span class="c1">// NAV_FIRST_CHILD</span>
+          <span class="nx">element</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">;</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">6</span><span class="o">:</span> <span class="c1">// NAV_SECOND_CHILD</span>
+          <span class="nx">element</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">.</span><span class="nx">nextSibling</span><span class="p">;</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">7</span><span class="o">:</span> <span class="c1">// NAV_NEXT_SIBLING</span>
+          <span class="nx">element</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">nextSibling</span><span class="p">;</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">8</span><span class="o">:</span> <span class="c1">// APPEND</span>
+          <span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)]</span> <span class="o">|</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>          
+          <span class="nx">element</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">renderElement</span><span class="p">(</span><span class="nx">e</span><span class="p">));</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">9</span><span class="o">:</span> <span class="c1">// REMOVE_LAST</span>
+          <span class="nx">element</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">lastChild</span><span class="p">);</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">10</span><span class="o">:</span> <span class="c1">// REMOVE_LAST_MANY</span>
+          <span class="kd">var</span> <span class="nx">times</span> <span class="o">=</span> <span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)]</span> <span class="o">|</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>   
+          <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">times</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="nx">element</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">lastChild</span><span class="p">);</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">11</span><span class="o">:</span> <span class="c1">// ATTR_SET</span>
+          <span class="kd">var</span> <span class="nx">attr</span> <span class="o">=</span> <span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)]</span> <span class="o">|</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>   
+          <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">AsciiToString</span><span class="p">(</span><span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)]);</span>
+          <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
+          <span class="k">if</span><span class="p">(</span><span class="nx">attr</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">//console.log(&quot;current value: &quot;, element.nodeValue);</span>
+            <span class="c1">//console.log(&quot;text: &quot;, value);</span>
+            <span class="nx">element</span><span class="p">.</span><span class="nx">nodeValue</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">element</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="nx">attributeNames</span><span class="p">[</span><span class="nx">attr</span><span class="p">],</span> <span class="nx">value</span><span class="p">);</span>
+          <span class="p">}</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">12</span><span class="o">:</span> <span class="c1">// ATTR_REMOVE</span>
+          <span class="kd">var</span> <span class="nx">attr</span> <span class="o">=</span> <span class="nx">HEAP32</span><span class="p">[((</span><span class="nx">p</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">2</span><span class="p">)]</span> <span class="o">|</span> <span class="mi">0</span><span class="p">;</span>
+          <span class="nx">p</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>   
+          <span class="nx">element</span><span class="p">.</span><span class="nx">removeAttribute</span><span class="p">(</span><span class="nx">attributeNames</span><span class="p">[</span><span class="nx">attr</span><span class="p">]);</span>
+          <span class="k">break</span><span class="p">;</span>
+        <span class="k">default</span><span class="o">:</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;SHIT HAPPENS&quot;</span><span class="p">);</span>
+          <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></div>
+
+<p>Завтра лечу в Прагу, а в дороге пока не получается работать. А пока результаты под тегом <code>day-6</code> <a href="https://github.com/platoff/faxma/tree/day-6">https://github.com/platoff/faxma/tree/day-6</a>.</p>
+
+                <br>
+                <p><a href="https://platoff.github.com/blog/">Назад, к записям</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'platoff';
+    var disqus_identifier = 'https:\/\/platoff.github.com\/blog\/%D0%BF%D0%BE%D1%80%D0%B0-%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F-%D0%B2-%D0%B1%D1%80%D0%B0%D1%83%D0%B7%D0%B5%D1%80%D0%B5\/';
+    var disqus_title = 'Пора запуститься в браузере';
+    var disqus_url = 'https:\/\/platoff.github.com\/blog\/%D0%BF%D0%BE%D1%80%D0%B0-%D0%B7%D0%B0%D0%BF%D1%83%D1%81%D1%82%D0%B8%D1%82%D1%8C%D1%81%D1%8F-%D0%B2-%D0%B1%D1%80%D0%B0%D1%83%D0%B7%D0%B5%D1%80%D0%B5\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+</body>
+</html>
+

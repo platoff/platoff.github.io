@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Don&#39;t panic">
+
+<base href="https://platoff.github.com/">
+<title>
+
+
+     Virtual DOM (День 2) 
+
+</title>
+<link rel="canonical" href="https://platoff.github.com/blog/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-2/">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://platoff.github.com/css/reset.css">
+<link rel="stylesheet" href="https://platoff.github.com/css/pygments.css">
+<link rel="stylesheet" href="https://platoff.github.com/css/main.css">
+
+
+    <link rel="stylesheet" href="https://platoff.github.com/css/override.css">
+
+
+
+<link rel="shortcut icon"
+
+    href="https://platoff.github.com/img/leaf.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="ru">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            
+              <a href="https://platoff.github.com/"><img class="avatar" src="https://platoff.github.com/img/avatar.jpg" /></a>
+            
+            <a href="https://platoff.github.com/"><div class="name">Андрей Платов</div></a>
+            <nav>
+                <ul>
+                    <a href="https://platoff.github.com/blog/"><li>Журнал</li></a>
+                    <a href="https://platoff.github.com/about/"><li>Обо мне</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/platoff" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/platoff" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/platov" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+            <a href="mailto:andrey@xored.com">
+                <i class="icon ion-ios-email larger"></i>
+            </a>
+        
+
+        
+            <a href="https://platoff.github.com/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Virtual DOM (День 2)
+
+</div>
+
+                    <div class="initials"><a href="https://platoff.github.com/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Sat Nov 19 2016 11:51:56 CET">Nov 19, 2016</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<p>День второй. Вчера перед сном понял что я - дебил. Листая бумажку по faxma я понял что во второй части агоритма (построение meta-diff) все равно придется бежать по структуре, и анализировать изменения аттрибутов, как это делают virtual domы Elm, Virtual DOM, React и прочие. Та часть, которую я реализовывал вчера не выглядит сильно полезной в этом процессе. Возможно она будет полезна частично, например при сравнении детей на отдельно взятом уровне (надо будет мерять производительность), но уже сейчас мне кажется что подход не хорош, и надо решать задачу в лоб, как все.</p>
+
+<h1 id="наивная-реализация">Наивная реализация</h1>
+
+<p>Я пока не хочу отказваться от &ldquo;поточной&rdquo; генерации DOM (XAS), и для начала сделаю механизм его генерации (на примере dbmonster). Дом строится примерно так:</p>
+<div class="highlight"><pre><code class="language-Nimrod" data-lang="Nimrod"><span></span><span class="k">proc </span><span class="nf">openTag</span><span class="p">(</span><span class="n">builder</span><span class="p">:</span> <span class="kd">var</span> <span class="n">DOMBuilder</span><span class="p">,</span> <span class="n">tag</span><span class="p">:</span> <span class="n">Tag</span><span class="p">)</span> <span class="o">=</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">elements</span><span class="p">.</span><span class="n">push</span> <span class="n">builder</span><span class="p">.</span><span class="n">current</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">current</span> <span class="o">=</span> <span class="k">cast</span><span class="o">[</span><span class="n">Element</span><span class="o">]</span><span class="p">(</span><span class="n">builder</span><span class="p">.</span><span class="n">contentStack</span><span class="p">.</span><span class="n">tail</span><span class="p">)</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">contentStack</span><span class="p">.</span><span class="n">advance</span> <span class="n">sizeof</span> <span class="n">ElementObj</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">tag</span> <span class="o">=</span> <span class="n">tag</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">nAttrs</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">nKids</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">proc </span><span class="nf">closeTag</span><span class="p">(</span><span class="n">builder</span><span class="p">:</span> <span class="kd">var</span> <span class="n">DOMBuilder</span><span class="p">)</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="k">cast</span><span class="o">[</span><span class="n">Element</span><span class="o">]</span><span class="p">(</span><span class="n">builder</span><span class="p">.</span><span class="n">dom</span><span class="p">.</span><span class="n">tail</span><span class="p">)</span> 
+  <span class="n">builder</span><span class="p">.</span><span class="n">dom</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">builder</span><span class="p">.</span><span class="n">current</span><span class="p">,</span> <span class="n">builder</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">contentStack</span><span class="p">.</span><span class="n">trim</span><span class="p">(</span><span class="n">builder</span><span class="p">.</span><span class="n">current</span><span class="p">)</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">contentStack</span><span class="p">.</span><span class="n">push</span> <span class="n">res</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">builder</span><span class="p">.</span><span class="n">elements</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="n">Element</span><span class="p">)</span>
+  <span class="n">inc</span> <span class="n">builder</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">nKids</span>
+
+<span class="k">proc </span><span class="nf">attr</span><span class="p">(</span><span class="n">builder</span><span class="p">:</span> <span class="kd">var</span> <span class="n">DOMBuilder</span><span class="p">,</span> <span class="n">attr</span><span class="p">:</span> <span class="n">Attr</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">cstring</span><span class="p">)</span> <span class="o">=</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">contentStack</span><span class="p">.</span><span class="n">push</span> <span class="n">attr</span>
+  <span class="n">builder</span><span class="p">.</span><span class="n">contentStack</span><span class="p">.</span><span class="n">push</span> <span class="n">value</span>
+  <span class="n">inc</span> <span class="n">builder</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">nAttrs</span>
+</code></pre></div>
+
+<p>В реальности это все обрастет разными замедляющими работу штуками, сейчас же на моем лаптопе за секунду создается около 20 млн простеньких элементов - это 20 тысяч за милисекунду. ОК, пока норм. Сейчас перейду к дифу, но для начала посмотрю сильно ли ухудшает сортировка аттрибутов в момент построения дома (да, старый добрый пузырек:). Код:</p>
+<div class="highlight"><pre><code class="language-Nimrod" data-lang="Nimrod"><span></span>  <span class="k">when</span> <span class="n">SORT_IT</span><span class="p">:</span>
+    <span class="k">let</span> <span class="n">attrs</span> <span class="o">=</span> <span class="n">builder</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">attrs</span>
+    <span class="kd">var</span> <span class="n">i</span> <span class="o">=</span> <span class="n">builder</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">nAttrs</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">if</span> <span class="kt">int</span><span class="p">(</span><span class="n">attrs</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">.</span><span class="n">attr</span><span class="p">)</span> <span class="o">&gt;</span> <span class="kt">int</span><span class="p">(</span><span class="n">attrs</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span><span class="p">.</span><span class="n">attr</span><span class="p">):</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">attrs</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">.</span><span class="n">attr</span><span class="p">,</span> <span class="n">attrs</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span><span class="p">.</span><span class="n">attr</span><span class="p">)</span>
+        <span class="n">swap</span><span class="p">(</span><span class="n">attrs</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">.</span><span class="n">value</span><span class="p">,</span> <span class="n">attrs</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span><span class="p">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">dec</span> <span class="n">i</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">break</span>
+</code></pre></div>
+
+<p>Простые замеры для 3 миллионов элементов (примерно по 4 аттрибута в каждом) показыают: без сортировки - 140-160 ms. С сортировкой 160-180 ms.</p>
+
+<h1 id="делаем-diff">Делаем Diff</h1>
+
+<p>Диф аттрибутов делается тривиально и O(n), учитывая отсортированные аттрибуты в момент построения дерева. А вот с детьми пришлось задуматься. Пролистал еще раз замечательную статью @localvoid: <a href="https://medium.com/@localvoid/how-to-win-in-web-framework-benchmarks-8bc31af76ce7#.iwdxqd1cn">How to win in Web Framework Benchmarks</a>. И ушел в <a href="https://en.wikipedia.org/wiki/Longest_common_subsequence_problem#Reduce_the_problem_set">Longest Common Subsequence Problem</a>.</p>
+
+<p>На сегодня программирования хватит. Результаты под тегом <code>day-2</code> <a href="https://github.com/platoff/faxma/tree/day-2">https://github.com/platoff/faxma/tree/day-2</a>.</p>
+
+                <br>
+                <p><a href="https://platoff.github.com/blog/">Назад, к записям</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'platoff';
+    var disqus_identifier = 'https:\/\/platoff.github.com\/blog\/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-2\/';
+    var disqus_title = 'Virtual DOM (День 2)';
+    var disqus_url = 'https:\/\/platoff.github.com\/blog\/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-2\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+</body>
+</html>
+

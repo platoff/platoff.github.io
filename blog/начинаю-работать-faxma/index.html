@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Don&#39;t panic">
+
+<base href="https://platoff.github.com/">
+<title>
+
+
+     Начинаю работать: Faxma 
+
+</title>
+<link rel="canonical" href="https://platoff.github.com/blog/%D0%BD%D0%B0%D1%87%D0%B8%D0%BD%D0%B0%D1%8E-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%82%D1%8C-faxma/">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://platoff.github.com/css/reset.css">
+<link rel="stylesheet" href="https://platoff.github.com/css/pygments.css">
+<link rel="stylesheet" href="https://platoff.github.com/css/main.css">
+
+
+    <link rel="stylesheet" href="https://platoff.github.com/css/override.css">
+
+
+
+<link rel="shortcut icon"
+
+    href="https://platoff.github.com/img/leaf.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="ru">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            
+              <a href="https://platoff.github.com/"><img class="avatar" src="https://platoff.github.com/img/avatar.jpg" /></a>
+            
+            <a href="https://platoff.github.com/"><div class="name">Андрей Платов</div></a>
+            <nav>
+                <ul>
+                    <a href="https://platoff.github.com/blog/"><li>Журнал</li></a>
+                    <a href="https://platoff.github.com/about/"><li>Обо мне</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/platoff" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/platoff" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/platov" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+            <a href="mailto:andrey@xored.com">
+                <i class="icon ion-ios-email larger"></i>
+            </a>
+        
+
+        
+            <a href="https://platoff.github.com/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Начинаю работать: Faxma
+
+</div>
+
+                    <div class="initials"><a href="https://platoff.github.com/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Fri Nov 18 2016 10:30:35 CET">Nov 18, 2016</div>
+                    <div class="reading-time"><div class="middot"></div>6 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<p>Сегодня, после многих месяцев прокрастниации и страданий на тему что программистом мне уже не быть, сел за работу. Пожалуй начну с Virtual DOM. Мельком глядя на существующие реализации Virtual DOM, понимаю что там вообще нет никакого rocket science - чуваки в лоб сравнивают деревяху применяя разнообразные эвристики, подробнее про это дело есть <a href="https://medium.com/@localvoid/how-to-win-in-web-framework-benchmarks-8bc31af76ce7">хорошая статья</a>.</p>
+
+<p>Вообще про сравнение деревях есть много рисерча, но я так понимаю большинство этого рисерча просто не выживет столкнувшись с реальностью (в мою прошлую жизнь - 20 лет назад я как то занимался поиском, и реализовал алгоритм из умной статейки - ему не хватило ни памяти ни времени). Собственно рисерч во многом ориентирован на построение минимального дифа между деревяхами, а это дорого. Так что соглашусь с авторами реактов и прочих вдомов - делать надо проще и O(n) (либо за O(n) понимать что патч не светит и менять нахер все.)</p>
+
+<p>Мой климакс программиста мне принес еще одно обострение детских болезней - я начал очень переживать за память и скорость - вот даже в детстве не переживал (поэтому наверное все получалось), а сейчас переживаю так, что ничего не могу с собой поделать (если меня читает молодеж - то ничего хорошего в этом нет). Но все же не буду бороться с диагнозом пока жизнь не излечит.</p>
+
+<h2 id="fast-and-simple-xml-tree-differencing-by-sequence-alignment-faxma">Fast and Simple XML Tree Differencing by Sequence Alignment (Faxma)</h2>
+
+<p>В поисках рисерча на тему сравнения деревях я наткнулся вот на эту <a href="http://www.hiit.fi/files/fi/fc/papers/doceng06-pc.pdf">статейку</a>. И, пока, мне оно нравится: После многих лет любви к GC у меня случилась его боязнь, и я бы предпочел вместо типичного представления DOM в виде дерева, представлять DOM в виде последовательности, а именно на последовательность ориентирован алгоритм.</p>
+
+<p>Плюсы последовательности:</p>
+
+<ul>
+<li>гораздо меньше памяти - только представьте что каждая нода из дерева, которая сама по себе объкт (с соответсвующими накладными расходами), еще содержит в себе массив аттрибутов, массив детей, эти массивы (если resizeable) скорее всего тоже обеъкты, которые ссылаются на другую область памяти с контентом.</li>
+<li>locality - в деревьях вся эта беда разбросана по хипу что вообще не спсобствует быстрой навигации по дому. Дом как последовательность очень cache-friendly.</li>
+<li>GC - ну и сборщик мусора будет собирать всю эту деревяху, тогда как последовательность можно загасить за один ход.</li>
+</ul>
+
+<p>Минусы:</p>
+
+<ul>
+<li>последоватьность дорого модифицировать, но в нашем случае это совсем не надо - мы же делаем VDOM, где каждая деревяшка immutable.</li>
+<li>по дому в виде последовательности сложнее навигироваться, но это просто больше бука а агоритме. Медленнее ли? В целом не знаю - где то больше вычислений, но возможный выйгрыш за счет локалити. В общем минус только в том, что придется попрограммировать.</li>
+</ul>
+
+<p>Что меня еще привлекает в DOM-as-a-Sequence, так это возможность переиспользования большего количества статических кусков DOM. Например у меня в DOM есть повторяющийся тег с детьми типа <code>&lt;li class=&quot;const1&quot;&gt;&lt;div class=&quot;const2&quot;&gt; что-то &lt;/div&gt;&lt;/li&gt;</code>. В случае с деревом это все разные ноды, так как разные дети, в общем переиспользование общих частей затруднительно. В случае же последовательности если очевидные статические подпоследовательности которые можно переиспользовать. Частый ли это сценарий? Думаю что да - возьмите, к примеру, шаблон какого нить элемента с парой изменящихся строк и кучей статичного HTML вокруг.</p>
+
+<p>Итак, для начала я попробую реализовать этот алгоритм сравнения двух HTML деревяшек, для своего будущего virtual DOM (без JavaScript и прочей хераборы).</p>
+
+<h2 id="реализация">Реализация</h2>
+
+<p>Алгоритм работает супротив последовательности событий XAS описывающих DOM. Я как программист из 90-х и начала 2000-х помню появление SAX парсера в Java, вобщем XAS в статейке это что-то типа сериализованных событий от SAX парсера (типа начало тега, конец тега, аттибут/значение, да и все :). Реализовал я это дело здесь (пока мы парсить ничего не будем).</p>
+
+<p>Переходим к самому алгоритму. Из бумажки:</p>
+
+<blockquote>
+<p>основа нашего алгоритма - <code>rollmatch(u, v)</code>, которая находит минимальный старт и максимальный конец i и j соответственно, для которых <code>u[0..(j-i)] == v[i..j]</code>, чтобы найти такие i и  j мы двигаем окно длинной s по v, каждый раз считая hash окна. Когда hash окон равен - сравниваем содержимое и вуаля. Считать каждый раз hash окна - жопа, поэтому мы пользуем Rabin fingerprint (&ldquo;rolling hash&rdquo;), пересчитывая hash за O(1) при каждом движении.</p>
+</blockquote>
+
+<p>Я пока не буду реализовывать rolling hash - посчитаю втупую, и получаю следующий rollmatch, в котором все просто - находим первое вхождение u[0..s] в v, расширяя s если возможно:</p>
+<div class="highlight"><pre><code class="language-Nimrod" data-lang="Nimrod"><span></span><span class="k">proc </span><span class="nf">rollmatch</span><span class="o">[</span><span class="n">T</span><span class="o">]</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="kt">seq</span><span class="o">[</span><span class="n">T</span><span class="o">]</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="kt">int</span><span class="p">):</span> <span class="n">Slice</span><span class="o">[</span><span class="kt">int</span><span class="o">]</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">hu</span> <span class="o">=</span> <span class="n">winhash</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+  <span class="kd">var</span> <span class="n">hv</span> <span class="o">=</span> <span class="n">winhash</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="mf">0</span><span class="p">..</span><span class="o">&lt;</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">-</span> <span class="n">s</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">hv</span> <span class="o">==</span> <span class="n">hu</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">equal</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="k">let</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">s</span>
+        <span class="kd">var</span> <span class="n">k</span> <span class="o">=</span> <span class="n">j</span>
+        <span class="k">while</span> <span class="n">v</span><span class="o">[</span><span class="n">k</span><span class="o">]</span> <span class="o">==</span> <span class="n">u</span><span class="o">[</span><span class="n">k</span> <span class="o">-</span> <span class="n">j</span><span class="o">]</span><span class="p">:</span> <span class="n">inc</span> <span class="n">k</span> <span class="c"># Greedy extension of match</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">i</span><span class="p">..</span><span class="n">k</span>
+        <span class="k">break</span>
+    <span class="n">hv</span> <span class="o">=</span> <span class="n">winhash</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="c"># need roll in future </span>
+</code></pre></div>
+
+<p>Дальше мутнее. Процедура <code>match(u, v, s)</code> еще не сопоставленным последовательностям u пытается сопоставить последовательности длинной s или больше из v. Это делается следующим образом: удаляем из u операцию вставки ins() и заменяем ее на опреации ins() и cpy(). ins() для несопоставленных участков и cpy() для сопоставленных соответственно. Пока не очень ясно, но ясно что нам нужен Matchlist. Абсолютно неэффективная реализация (в Nim нет slices, как например в Go) но сейчас это не важно:</p>
+<div class="highlight"><pre><code class="language-Nimrod" data-lang="Nimrod"><span></span><span class="k">type</span>
+  <span class="n">OpKind</span> <span class="o">=</span> <span class="k">enum</span>
+    <span class="n">ins</span>
+    <span class="n">cpy</span>
+
+  <span class="n">Operation</span><span class="o">[</span><span class="n">T</span><span class="o">]</span> <span class="o">=</span> <span class="k">object</span>
+    <span class="n">op</span><span class="p">:</span> <span class="n">OpKind</span>
+    <span class="n">s</span><span class="p">:</span> <span class="kt">seq</span><span class="o">[</span><span class="n">T</span><span class="o">]</span>
+
+  <span class="n">Matchlist</span><span class="o">[</span><span class="n">T</span><span class="o">]</span> <span class="o">=</span> <span class="k">object</span>
+    <span class="n">list</span><span class="p">:</span> <span class="kt">seq</span><span class="o">[</span><span class="n">Operation</span><span class="o">[</span><span class="n">T</span><span class="o">]]</span>
+</code></pre></div>
+
+<p>Временно забъю на match, разберусь сначала с низкоуровневой <code>findmatch(u, v, s)</code>. Она сканирует подпоследовательности в v, на предмет матчинга с u.</p>
+<div class="highlight"><pre><code class="language-Nimrod" data-lang="Nimrod"><span></span><span class="k">proc </span><span class="nf">findmatch</span><span class="o">[</span><span class="n">T</span><span class="o">]</span><span class="p">(</span><span class="n">u</span><span class="p">:</span> <span class="kt">seq</span><span class="o">[</span><span class="n">T</span><span class="o">]</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="kd">var</span> <span class="n">Matchlist</span><span class="o">[</span><span class="n">T</span><span class="o">]</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="kt">int</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="kd">var</span> <span class="kt">int</span><span class="p">):</span> <span class="n">Operation</span><span class="o">[</span><span class="n">T</span><span class="o">]</span> <span class="o">=</span>
+  <span class="kd">var</span> <span class="n">delta</span> <span class="o">=</span> <span class="mi">1</span> 
+  <span class="k">while</span> <span class="kp">true</span><span class="p">:</span>
+    <span class="k">let</span> <span class="n">i</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="n">delta</span> 
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">.</span><span class="n">list</span><span class="p">.</span><span class="n">len</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">let</span> <span class="n">op</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">list</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>
+      <span class="k">if</span> <span class="n">op</span><span class="p">.</span><span class="n">op</span> <span class="o">==</span> <span class="n">ins</span><span class="p">:</span>
+        <span class="k">let</span> <span class="n">match</span> <span class="o">=</span> <span class="n">rollmatch</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">op</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span> <span class="o">!=</span> <span class="mf">0</span><span class="p">..</span><span class="mi">0</span><span class="p">:</span>
+          <span class="n">v</span><span class="p">.</span><span class="n">list</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">insert</span><span class="p">(</span><span class="n">op</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="mf">0</span><span class="p">..</span><span class="n">match</span><span class="p">.</span><span class="n">a</span><span class="p">)</span>
+          <span class="n">insert</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">list</span><span class="p">,</span> <span class="n">insert</span><span class="p">(</span><span class="n">op</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">match</span><span class="p">.</span><span class="n">b</span><span class="p">..</span><span class="n">op</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="n">len</span><span class="p">),</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+          <span class="n">p</span> <span class="o">=</span> <span class="n">i</span>
+          <span class="n">result</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">op</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">match</span><span class="p">)</span>
+          <span class="k">break</span>
+    <span class="k">if</span> <span class="n">delta</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="n">delta</span> <span class="o">=</span> <span class="o">-</span><span class="n">delta</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">delta</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">delta</span>
+      <span class="k">if</span> <span class="n">delta</span> <span class="o">&gt;</span> <span class="n">v</span><span class="p">.</span><span class="n">list</span><span class="p">.</span><span class="n">len</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">break</span>
+</code></pre></div>
+
+<p>OK, выглядит как будто findmatch нашел подпоследовательность u в списке v, вырезал ее из v и вернулся. Перехожу к match. Тупо портирую - буду изучать на тестах.</p>
+<div class="highlight"><pre><code class="language-Nimrod" data-lang="Nimrod"><span></span><span class="k">proc </span><span class="nf">match</span><span class="o">[</span><span class="n">T</span><span class="o">]</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="kd">var</span> <span class="n">Matchlist</span><span class="o">[</span><span class="n">T</span><span class="o">]</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span> <span class="o">=</span>
+  <span class="kd">var</span> <span class="n">cu</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="kd">var</span> <span class="n">p</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+  <span class="k">while</span> <span class="n">cu</span> <span class="o">&lt;</span> <span class="n">u</span><span class="p">.</span><span class="n">list</span><span class="p">.</span><span class="n">len</span><span class="p">:</span>
+    <span class="k">let</span> <span class="n">t</span> <span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">list</span><span class="o">[</span><span class="n">cu</span><span class="o">]</span>
+    <span class="k">if</span> <span class="n">t</span><span class="p">.</span><span class="n">op</span> <span class="o">==</span> <span class="n">ins</span><span class="p">:</span>
+      <span class="n">delete</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">list</span><span class="p">,</span> <span class="n">cu</span><span class="p">)</span>
+      <span class="k">let</span> <span class="n">c</span> <span class="o">=</span> <span class="n">findmatch</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">p</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">insert</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">list</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">cu</span><span class="p">)</span>
+        <span class="n">insert</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">list</span><span class="p">,</span> <span class="n">insert</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="n">len</span><span class="p">..</span><span class="n">t</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="n">len</span><span class="p">),</span> <span class="n">cu</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">insert</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">list</span><span class="p">,</span> <span class="n">insert</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="mf">0</span><span class="p">..</span><span class="n">s</span><span class="p">),</span> <span class="n">cu</span><span class="p">)</span>
+        <span class="n">insert</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">list</span><span class="p">,</span> <span class="n">insert</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">..</span><span class="n">t</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="n">len</span><span class="p">),</span> <span class="n">cu</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">inc</span> <span class="n">cu</span>
+</code></pre></div>
+
+<p>Для тестов беру последовательности из бумажки.</p>
+<div class="highlight"><pre><code class="language-Nimrod" data-lang="Nimrod"><span></span><span class="k">type</span>
+  <span class="n">Test</span> <span class="o">=</span> <span class="k">enum</span>
+    <span class="n">SEr</span><span class="p">,</span> <span class="n">SEa</span><span class="p">,</span> <span class="n">SEc</span><span class="p">,</span> <span class="n">EEc</span><span class="p">,</span> <span class="n">SEd</span><span class="p">,</span> <span class="n">EEd</span><span class="p">,</span> <span class="n">SEe</span><span class="p">,</span> <span class="n">EEe</span><span class="p">,</span> <span class="n">EEa</span><span class="p">,</span> <span class="n">SEb</span><span class="p">,</span> <span class="n">SEf</span><span class="p">,</span> <span class="n">EEf</span><span class="p">,</span> <span class="n">EEb</span><span class="p">,</span> <span class="n">EEr</span><span class="p">,</span> <span class="n">SEi</span><span class="p">,</span> <span class="n">EEi</span>
+
+<span class="kd">var</span> <span class="n">s0</span> <span class="o">=</span> <span class="o">@[</span><span class="n">SEr</span><span class="p">,</span> <span class="n">SEa</span><span class="p">,</span> <span class="n">SEc</span><span class="p">,</span> <span class="n">EEc</span><span class="p">,</span> <span class="n">SEd</span><span class="p">,</span> <span class="n">EEd</span><span class="p">,</span> <span class="n">SEe</span><span class="p">,</span> <span class="n">EEe</span><span class="p">,</span> <span class="n">EEa</span><span class="p">,</span> <span class="n">SEb</span><span class="p">,</span> <span class="n">SEf</span><span class="p">,</span> <span class="n">EEf</span><span class="p">,</span> <span class="n">EEb</span><span class="p">,</span> <span class="n">EEr</span><span class="o">]</span>
+<span class="kd">var</span> <span class="n">s1</span> <span class="o">=</span> <span class="o">@[</span><span class="n">SEr</span><span class="p">,</span> <span class="n">SEb</span><span class="p">,</span> <span class="n">SEf</span><span class="p">,</span> <span class="n">EEf</span><span class="p">,</span> <span class="n">EEb</span><span class="p">,</span> <span class="n">SEa</span><span class="p">,</span> <span class="n">SEc</span><span class="p">,</span> <span class="n">EEc</span><span class="p">,</span> <span class="n">SEd</span><span class="p">,</span> <span class="n">EEd</span><span class="p">,</span> <span class="n">EEa</span><span class="p">,</span> <span class="n">SEa</span><span class="p">,</span> <span class="n">SEi</span><span class="p">,</span> <span class="n">EEi</span><span class="p">,</span> <span class="n">EEr</span><span class="o">]</span>
+</code></pre></div>
+
+<p>Потыкавшись с s == 2, понимаю что работает это дело не так как ожидается, видимо из за того что я проигнорировал следующее:</p>
+
+<blockquote>
+<p>The match list u automatically combines pairs of operations into one when applicable (e.g., ⟨&hellip;,cpy(0,1),cpy(1,2),&hellip;⟩ → ⟨&hellip;,cpy(0,2),&hellip;⟩) to avoid artificial boundaries and to keep the output simple.</p>
+</blockquote>
+
+<p>Дело не в output simple, а в принципе в работоспособности алгоритма. Самое время сделать полноценный Matchlist.</p>
+
+<h2 id="конец-дня">Конец дня</h2>
+
+<p>Вобщем потыкавшись, я понял что сделал глупость - алгоритм должен работать с глобальными интервалами, переделал Matchlist и получил работающий результат при s == 2. При s == 1 - падает, проблема в том что у меня рассинхрон курсора и списка интервалов в Matchlist в следствии объединения интервалов. В общем понятно как все привести в нормальный вид - это на завтра. Результат первого дня здесь: <a href="https://github.com/platoff/faxma/tree/day-1">https://github.com/platoff/faxma/tree/day-1</a></p>
+
+                <br>
+                <p><a href="https://platoff.github.com/blog/">Назад, к записям</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'platoff';
+    var disqus_identifier = 'https:\/\/platoff.github.com\/blog\/%D0%BD%D0%B0%D1%87%D0%B8%D0%BD%D0%B0%D1%8E-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%82%D1%8C-faxma\/';
+    var disqus_title = 'Начинаю работать: Faxma';
+    var disqus_url = 'https:\/\/platoff.github.com\/blog\/%D0%BD%D0%B0%D1%87%D0%B8%D0%BD%D0%B0%D1%8E-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D1%82%D1%8C-faxma\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+</body>
+</html>
+
