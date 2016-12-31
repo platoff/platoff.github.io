@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Don&#39;t panic">
+
+<base href="https://platoff.github.io/">
+<title>
+
+
+     Прошел месяц 
+
+</title>
+<link rel="canonical" href="https://platoff.github.io/blog/%D0%BF%D1%80%D0%BE%D1%88%D0%B5%D0%BB-%D0%BC%D0%B5%D1%81%D1%8F%D1%86/">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://platoff.github.io/css/reset.css">
+<link rel="stylesheet" href="https://platoff.github.io/css/pygments.css">
+<link rel="stylesheet" href="https://platoff.github.io/css/main.css">
+
+
+    <link rel="stylesheet" href="https://platoff.github.io/css/override.css">
+
+
+
+<link rel="shortcut icon"
+
+    href="https://platoff.github.io/img/leaf.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="ru">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            
+              <a href="https://platoff.github.io/"><img class="avatar" src="https://platoff.github.io/img/avatar.jpg" /></a>
+            
+            <a href="https://platoff.github.io/"><div class="name">Андрей Платов</div></a>
+            <nav>
+                <ul>
+                    <a href="https://platoff.github.io/blog/"><li>Журнал</li></a>
+                    <a href="https://platoff.github.io/about/"><li>Обо мне</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/platoff" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/platoff" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/platov" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+            <a href="mailto:andrey@xored.com">
+                <i class="icon ion-ios-email larger"></i>
+            </a>
+        
+
+        
+            <a href="https://platoff.github.io/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Прошел месяц
+
+</div>
+
+                    <div class="initials"><a href="https://platoff.github.io/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Mon Dec 19 2016 10:12:21 CET">Dec 19, 2016</div>
+                    <div class="reading-time"><div class="middot"></div>3 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<p>Прошел месяц с моего решения ежедневно программировать и так же ежедневно писать. В результате я програмиировал 4.5 дня. Писал немного чаще, но в основном в чукотском стиле (что вижу - то пою). А это уже некоторые цифирки, помогающие мне понять чем я на самом деле занимаюсь, и в какую из труб вылетает все мое время.</p>
+
+<h2 id="заканчиваю-с-dbmonster">Заканчиваю с dbmonster</h2>
+
+<p>Прежде чем идти дальше, приду к какому-то законченному варианту с dbmonster. Мне не нравится что выглядит он не так, как остальные dbmonster в сети: толи я накосячил со стилями, то-ли в html, непорядок. Попробую найти проблему.</p>
+
+<blockquote>
+<p>Ебать же в сраку вашу мать</p>
+</blockquote>
+
+<p>Сравнил все что мог, мистика, HTML и CSS идентичны, но у чувачков размер фонта поменьше и количество запросов выровнено по вертикали, в отличии от меня. Ебана в рот, оказывается дело в том что у меня нет вот этой прекрасной директивы <code>&lt;!DOCTYPE html&gt;</code>, которая, кто бы мог подумать, имеет значение.</p>
+
+<p>Определенно, Web продвинулся очень далеко с 1999 года, и мне придется многое изучить, ну а мой dbmonster теперь выглядит как все.</p>
+
+<h2 id="заканчиваю-с-dom-diff">Заканчиваю с DOM diff</h2>
+
+<p>В общем DOM diff вещь, которая безусловно пригодится но я пока не вижу всей картины. Как должно выглядить полноценное приложение мне совсем не понятно. Как я буду управлять состоянием, на чем буду писать презентацию и ее логику? Будет ли это Nim или собственный язык (если так то будет это компилятор или интерпретатор на Nim). Язык общего назначения или &ldquo;шаблоны&rdquo;?</p>
+
+<p>Чтобы закончить на позитивной ноте, решил еще померять скорость того, что есть. Имеется ввиду полный цикл (построение модели, рендер в HTML, diff с предыдущей и применение diff к DOM браузера). Основная просадка по времени была не у меня а в 2-х местах
+* Реализация random в Nim модуле random жутко медленная. Заменил на модуль mersenne.
+* Форматирование при выводе float в строку так же съедает большую часть времени, заменил на int в модели.</p>
+
+<p>После этих двух нехитрых изменений:</p>
+
+<ul>
+<li>Нативно: Render: 0.3ms, Diff: 0.35ms, Model + Render + Diff: <strong>1ms</strong></li>
+<li>V8 (node.js v4.1.1): Render: 1.2ms, Diff: 1.8ms, Model + Render + Diff: <strong>4.3ms</strong></li>
+</ul>
+
+<p>Качнул свежак node - v7.3.0, в душе не ебу как у них с версиями и старая ли моя 4.1.1.</p>
+
+<ul>
+<li>V8 (node.js v7.3.0): Model + Render + Diff: <strong>4.8ms</strong> - эта гавнина еще медленнее, похоже я не умею ее готовить&hellip;</li>
+</ul>
+
+<p>Нашел гарную тему: <code>node --v8-options</code>, включаю некий TurboFan <code>--turbo</code></p>
+
+<ul>
+<li>V8 (node.js v7.3.0): Model + Render + Diff: <strong>6.2ms</strong> начинаю ржать :).</li>
+<li>V8 (node.js v7.3.0 &ndash;turbo_asm): Model + Render + Diff: <strong>4.3ms</strong> походу эта муля была включена в 4.1.1 по умолчанию.</li>
+</ul>
+
+<p>В общем с настройками V8 интересно баловаться, но оставлю на потом.</p>
+
+<h2 id="посмотреть">Посмотреть</h2>
+
+<p>Потыкать в dbmonster (200 строк) можно здесь: <a href="https://platoff.github.io/dbmonster/200/dbmonster.html">https://platoff.github.io/dbmonster/200/dbmonster.html</a>. Постмотреть как оно должно быть (с точки зрения производительности) можно здесь: <a href="https://platoff.github.io/dbmonster/20/dbmonster.html">https://platoff.github.io/dbmonster/20/dbmonster.html</a>.</p>
+
+<p>Код здесь: <a href="https://github.com/platoff/faxma/tree/day-161219">https://github.com/platoff/faxma/tree/day-161219</a></p>
+
+                <br>
+                <p><a href="https://platoff.github.io/blog/">Назад, к записям</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'platoff';
+    var disqus_identifier = 'https:\/\/platoff.github.io\/blog\/%D0%BF%D1%80%D0%BE%D1%88%D0%B5%D0%BB-%D0%BC%D0%B5%D1%81%D1%8F%D1%86\/';
+    var disqus_title = 'Прошел месяц';
+    var disqus_url = 'https:\/\/platoff.github.io\/blog\/%D0%BF%D1%80%D0%BE%D1%88%D0%B5%D0%BB-%D0%BC%D0%B5%D1%81%D1%8F%D1%86\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+</body>
+</html>
+
