@@ -1,13 +1,73 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Сорок лет - это те-же двадцать</title>
+    <title>Сорок лет - это те же двадцать</title>
     <link>https://platoff.github.io/index.xml</link>
-    <description>Recent content on Сорок лет - это те-же двадцать</description>
+    <description>Recent content on Сорок лет - это те же двадцать</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru-RU</language>
-    <lastBuildDate>Wed, 14 Dec 2016 12:12:47 +0100</lastBuildDate>
+    <lastBuildDate>Mon, 19 Dec 2016 10:12:21 +0100</lastBuildDate>
     <atom:link href="https://platoff.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Прошел месяц</title>
+      <link>https://platoff.github.io/blog/%D0%BF%D1%80%D0%BE%D1%88%D0%B5%D0%BB-%D0%BC%D0%B5%D1%81%D1%8F%D1%86/</link>
+      <pubDate>Mon, 19 Dec 2016 10:12:21 +0100</pubDate>
+      
+      <guid>https://platoff.github.io/blog/%D0%BF%D1%80%D0%BE%D1%88%D0%B5%D0%BB-%D0%BC%D0%B5%D1%81%D1%8F%D1%86/</guid>
+      <description>
+
+&lt;p&gt;Прошел месяц с моего решения ежедневно программировать и так же ежедневно писать. В результате я програмиировал 4.5 дня. Писал немного чаще, но в основном в чукотском стиле (что вижу - то пою). А это уже некоторые цифирки, помогающие мне понять чем я на самом деле занимаюсь, и в какую из труб вылетает все мое время.&lt;/p&gt;
+
+&lt;h2 id=&#34;заканчиваю-с-dbmonster&#34;&gt;Заканчиваю с dbmonster&lt;/h2&gt;
+
+&lt;p&gt;Прежде чем идти дальше, приду к какому-то законченному варианту с dbmonster. Мне не нравится что выглядит он не так, как остальные dbmonster в сети: толи я накосячил со стилями, то-ли в html, непорядок. Попробую найти проблему.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Ебать же в сраку вашу мать&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Сравнил все что мог, мистика, HTML и CSS идентичны, но у чувачков размер фонта поменьше и количество запросов выровнено по вертикали, в отличии от меня. Ебана в рот, оказывается дело в том что у меня нет вот этой прекрасной директивы &lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/code&gt;, которая, кто бы мог подумать, имеет значение.&lt;/p&gt;
+
+&lt;p&gt;Определенно, Web продвинулся очень далеко с 1999 года, и мне придется многое изучить, ну а мой dbmonster теперь выглядит как все.&lt;/p&gt;
+
+&lt;h2 id=&#34;заканчиваю-с-dom-diff&#34;&gt;Заканчиваю с DOM diff&lt;/h2&gt;
+
+&lt;p&gt;В общем DOM diff вещь, которая безусловно пригодится но я пока не вижу всей картины. Как должно выглядить полноценное приложение мне совсем не понятно. Как я буду управлять состоянием, на чем буду писать презентацию и ее логику? Будет ли это Nim или собственный язык (если так то будет это компилятор или интерпретатор на Nim). Язык общего назначения или &amp;ldquo;шаблоны&amp;rdquo;?&lt;/p&gt;
+
+&lt;p&gt;Чтобы закончить на позитивной ноте, решил еще померять скорость того, что есть. Имеется ввиду полный цикл (построение модели, рендер в HTML, diff с предыдущей и применение diff к DOM браузера). Основная просадка по времени была не у меня а в 2-х местах
+* Реализация random в Nim модуле random жутко медленная. Заменил на модуль mersenne.
+* Форматирование при выводе float в строку так же съедает большую часть времени, заменил на int в модели.&lt;/p&gt;
+
+&lt;p&gt;После этих двух нехитрых изменений:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Нативно: Render: 0.3ms, Diff: 0.35ms, Model + Render + Diff: &lt;strong&gt;1ms&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;V8 (node.js v4.1.1): Render: 1.2ms, Diff: 1.8ms, Model + Render + Diff: &lt;strong&gt;4.3ms&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Качнул свежак node - v7.3.0, в душе не ебу как у них с версиями и старая ли моя 4.1.1.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;V8 (node.js v7.3.0): Model + Render + Diff: &lt;strong&gt;4.8ms&lt;/strong&gt; - эта гавнина еще медленнее, похоже я не умею ее готовить&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Нашел гарную тему: &lt;code&gt;node --v8-options&lt;/code&gt;, включаю некий TurboFan &lt;code&gt;--turbo&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;V8 (node.js v7.3.0): Model + Render + Diff: &lt;strong&gt;6.2ms&lt;/strong&gt; начинаю ржать :).&lt;/li&gt;
+&lt;li&gt;V8 (node.js v7.3.0 &amp;ndash;turbo_asm): Model + Render + Diff: &lt;strong&gt;4.3ms&lt;/strong&gt; походу эта муля была включена в 4.1.1 по умолчанию.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;В общем с настройками V8 интересно баловаться, но оставлю на потом.&lt;/p&gt;
+
+&lt;h2 id=&#34;посмотреть&#34;&gt;Посмотреть&lt;/h2&gt;
+
+&lt;p&gt;Потыкать в dbmonster (200 строк) можно здесь: &lt;a href=&#34;https://platoff.github.io/dbmonster/200/dbmonster.html&#34;&gt;https://platoff.github.io/dbmonster/200/dbmonster.html&lt;/a&gt;. Постмотреть как оно должно быть (с точки зрения производительности) можно здесь: &lt;a href=&#34;https://platoff.github.io/dbmonster/20/dbmonster.html&#34;&gt;https://platoff.github.io/dbmonster/20/dbmonster.html&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Код здесь: &lt;a href=&#34;https://github.com/platoff/faxma/tree/day-161219&#34;&gt;https://github.com/platoff/faxma/tree/day-161219&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Выхожу из тени</title>
@@ -27,9 +87,9 @@
       <pubDate>Tue, 13 Dec 2016 18:17:52 +0100</pubDate>
       
       <guid>https://platoff.github.io/blog/%D1%80%D0%B5%D0%BA%D1%80%D1%83%D1%82%D0%B5%D1%80/</guid>
-      <description>&lt;p&gt;Сегодня не программировал, но день прошел не без мелких программистских радостей. Рекрутеры не контачили со мной много лет. Я думаю это потому, что мой GitHub пуст, а в &amp;ldquo;резюме&amp;rdquo; нет интересующих их слов типа JavaScript. Но стоило мне начать программировать, какая-то особо чувствительная особа унюхала свежее мясо и доебалась.&lt;/p&gt;
+      <description>&lt;p&gt;Сегодня не программировал, но день прошел не без мелких программистских &amp;ldquo;радостей&amp;rdquo;. Рекрутеры не контачили со мной много лет. Я думаю это потому, что мой GitHub пуст, а в резюме нет интересующих их слов типа JavaScript. Но стоило мне начать программировать, какая-то особо чувствительная особа унюхала свежее мясо и доебалась.&lt;/p&gt;
 
-&lt;p&gt;Я честно говоря был несказанно рад: ведь общение с рекрутером &amp;ndash; это уже признак того, что я становлюсь интересен как программист. Уверен, что для практикующих программистов такие диалоги &amp;ndash; рутина, но для меня &amp;ndash; нечто новое. Вот что получилось:&lt;/p&gt;
+&lt;p&gt;Я честно говоря был рад: ведь общение с рекрутером &amp;ndash; это уже признак того, что я становлюсь интересен как программист. Уверен, что для практикующих программистов такие диалоги &amp;ndash; рутина, но для меня &amp;ndash; нечто новое. Вот что получилось:&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;&amp;ndash; Андрей, добрый день. Спешно ищем Лида в Webgames. Давайте пообщаемся?&lt;br /&gt;
