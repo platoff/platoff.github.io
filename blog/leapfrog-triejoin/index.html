@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Don&#39;t panic">
+
+<base href="https://platoff.github.io/">
+<title>
+
+
+     Leapfrog Triejoin 
+
+</title>
+<link rel="canonical" href="https://platoff.github.io/blog/leapfrog-triejoin/">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://platoff.github.io/css/reset.css">
+<link rel="stylesheet" href="https://platoff.github.io/css/pygments.css">
+<link rel="stylesheet" href="https://platoff.github.io/css/main.css">
+
+
+    <link rel="stylesheet" href="https://platoff.github.io/css/override.css">
+
+
+
+<link rel="shortcut icon"
+
+    href="https://platoff.github.io/img/leaf.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="ru">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            
+              <a href="https://platoff.github.io/"><img class="avatar" src="https://platoff.github.io/img/avatar.jpg" /></a>
+            
+            <a href="https://platoff.github.io/"><div class="name">Андрей Платов</div></a>
+            <nav>
+                <ul>
+                    <a href="https://platoff.github.io/blog/"><li>Журнал</li></a>
+                    <a href="https://platoff.github.io/about/"><li>Обо мне</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/platoff" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/platoff" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/platov" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+            <a href="mailto:andrey@xored.com">
+                <i class="icon ion-ios-email larger"></i>
+            </a>
+        
+
+        
+            <a href="https://platoff.github.io/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Leapfrog Triejoin
+
+</div>
+
+                    <div class="initials"><a href="https://platoff.github.io/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Tue Jan 3 2017 15:51:49 CET">Jan 3, 2017</div>
+                    <div class="reading-time"><div class="middot"></div>1 minute read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>Итак, <a href="https://platoff.github.io/blog/%D0%B7%D0%B0%D1%85%D0%BE%D0%B6%D1%83-%D1%81-%D0%B4%D1%80%D1%83%D0%B3%D0%BE%D0%B9-%D1%81%D1%82%D0%BE%D1%80%D0%BE%D0%BD%D1%8B/">из вчерашнего</a> мы узнали, что сердце моего движка запросов - <a href="https://arxiv.org/abs/1210.0481">Leapfrog Triejoin</a> алгоритм. Надо закончить с выбором плана и построением соответствующих итераторов.</p>
+
+<p>В общем, после всей ебаты на 300 строк, оно заработало. Сам join проще простого:</p>
+<div class="highlight"><pre><code class="language-Nimrod" data-lang="Nimrod"><span></span>  <span class="kd">var</span> <span class="n">join</span><span class="p">:</span> <span class="n">TrieJoin</span><span class="o">[</span><span class="n">TrieIter</span><span class="o">]</span>
+  <span class="n">join</span><span class="p">.</span><span class="n">init</span><span class="p">(</span><span class="n">plan</span><span class="p">)</span>
+
+  <span class="k">proc </span><span class="nf">joinOn</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="kt">int</span><span class="p">)</span> <span class="o">=</span>
+    <span class="kd">var</span> <span class="n">leapfrog</span> <span class="o">=</span> <span class="n">join</span><span class="p">.</span><span class="n">open</span>
+    <span class="k">while</span> <span class="ow">not</span> <span class="n">leapfrog</span><span class="p">.</span><span class="n">atEnd</span><span class="p">:</span>
+      <span class="n">echo</span> <span class="n">q</span><span class="p">.</span><span class="n">vars</span><span class="o">[</span><span class="n">v</span><span class="o">]</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&quot; &lt;- &quot;</span><span class="p">,</span> <span class="n">leapfrog</span><span class="p">.</span><span class="n">key</span><span class="p">.</span><span class="n">key</span>
+      <span class="k">if</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">vars</span><span class="p">.</span><span class="n">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">joinOn</span><span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+      <span class="n">leapfrog</span><span class="p">.</span><span class="n">next</span>
+    <span class="n">join</span><span class="p">.</span><span class="n">up</span>
+
+  <span class="n">joinOn</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Результат под тегом <a href="https://github.com/platoff/wafer/tree/day-170103"><code>day-170103</code></a>.</p>
+
+                <br>
+                <p><a href="https://platoff.github.io/blog/">Назад, к записям</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'platoff';
+    var disqus_identifier = 'https:\/\/platoff.github.io\/blog\/leapfrog-triejoin\/';
+    var disqus_title = 'Leapfrog Triejoin';
+    var disqus_url = 'https:\/\/platoff.github.io\/blog\/leapfrog-triejoin\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+</body>
+</html>
+

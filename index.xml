@@ -6,8 +6,36 @@
     <description>Recent content on Сорок лет - это те же двадцать</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru-RU</language>
-    <lastBuildDate>Mon, 02 Jan 2017 10:19:40 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 03 Jan 2017 15:51:49 +0100</lastBuildDate>
     <atom:link href="https://platoff.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Leapfrog Triejoin</title>
+      <link>https://platoff.github.io/blog/leapfrog-triejoin/</link>
+      <pubDate>Tue, 03 Jan 2017 15:51:49 +0100</pubDate>
+      
+      <guid>https://platoff.github.io/blog/leapfrog-triejoin/</guid>
+      <description>&lt;p&gt;Итак, &lt;a href=&#34;https://platoff.github.io/blog/%D0%B7%D0%B0%D1%85%D0%BE%D0%B6%D1%83-%D1%81-%D0%B4%D1%80%D1%83%D0%B3%D0%BE%D0%B9-%D1%81%D1%82%D0%BE%D1%80%D0%BE%D0%BD%D1%8B/&#34;&gt;из вчерашнего&lt;/a&gt; мы узнали, что сердце моего движка запросов - &lt;a href=&#34;https://arxiv.org/abs/1210.0481&#34;&gt;Leapfrog Triejoin&lt;/a&gt; алгоритм. Надо закончить с выбором плана и построением соответствующих итераторов.&lt;/p&gt;
+
+&lt;p&gt;В общем, после всей ебаты на 300 строк, оно заработало. Сам join проще простого:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-Nimrod&#34; data-lang=&#34;Nimrod&#34;&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;join&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TrieJoin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TrieIter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;join&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;init&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;plan&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+  &lt;span class=&#34;k&#34;&gt;proc &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;joinOn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;leapfrog&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;join&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;open&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;leapfrog&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;atEnd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+      &lt;span class=&#34;n&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vars&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot; &amp;lt;- &amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;leapfrog&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;
+      &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vars&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;joinOn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+      &lt;span class=&#34;n&#34;&gt;leapfrog&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;next&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;join&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;up&lt;/span&gt;
+
+  &lt;span class=&#34;n&#34;&gt;joinOn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Результат под тегом &lt;a href=&#34;https://github.com/platoff/wafer/tree/day-170103&#34;&gt;&lt;code&gt;day-170103&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Захожу с другой стороны</title>
@@ -63,7 +91,7 @@ Anyway, it would be interesting to perform a clean performance comparison betwee
 
 &lt;h1 id=&#34;хуярю&#34;&gt;Хуярю&lt;/h1&gt;
 
-&lt;p&gt;Надо доделать сам join, сейчас у меня есть только план выполнения запроса. Но перед этим надо навести порядок с ебучей матрицей, которая у меня вдруг возникла. Последний раз я матрицу пользовал в школе, когда программировал пиксельную графику (и не для афинных преобразований &amp;ndash; я про них не знал ни тогда ни сейчас), а для того чтобы хранить пиксели. А из университета меня выгнали, так что матрицы я не программировал, и всегда считал что для программиста достаточно одномерного массива. Но все же в данном месте мне очень хочется ее засунуть.&lt;/p&gt;
+&lt;p&gt;Надо доделать сам join, сейчас у меня есть только план выполнения запроса. Но перед этим надо навести порядок с ебучей матрицей, которая у меня вдруг возникла. Последний раз я матрицу пользовал в школе, когда программировал пиксельную графику (и не для аффинных преобразований &amp;ndash; я про них не знал ни тогда ни сейчас), а для того чтобы хранить пиксели. А из университета меня выгнали, так что матрицы я не программировал, и всегда считал что для программиста достаточно одномерного массива. Но все же в данном месте мне очень хочется ее засунуть.&lt;/p&gt;
 
 &lt;p&gt;&amp;hellip;В общем хер с ним &amp;ndash; делать полноценное построение всех планов это подзаебаться, завтра сделаю чтобы работало в моих частных случаях. &lt;a href=&#34;https://github.com/platoff/wafer/commit/4bd155da9c37fa54cfeaad4ac5dce8d97d821371&#34;&gt;Коммит&lt;/a&gt;&lt;/p&gt;
 </description>
@@ -917,32 +945,6 @@ Anyway, it would be interesting to perform a clean performance comparison betwee
 &lt;h2 id=&#34;конец-дня&#34;&gt;Конец дня&lt;/h2&gt;
 
 &lt;p&gt;Вобщем потыкавшись, я понял что сделал глупость - алгоритм должен работать с глобальными интервалами, переделал Matchlist и получил работающий результат при s == 2. При s == 1 - падает, проблема в том что у меня рассинхрон курсора и списка интервалов в Matchlist в следствии объединения интервалов. В общем понятно как все привести в нормальный вид - это на завтра. Результат первого дня здесь: &lt;a href=&#34;https://github.com/platoff/faxma/tree/day-1&#34;&gt;https://github.com/platoff/faxma/tree/day-1&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Обо мне</title>
-      <link>https://platoff.github.io/about/</link>
-      <pubDate>Wed, 12 Oct 2016 14:01:05 +0300</pubDate>
-      
-      <guid>https://platoff.github.io/about/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;Сорок лет &amp;ndash; это те же двадцать, дело только в цене: В сорок рваться из резерваций веселее вдвойне. &amp;ndash; Олег Медведев&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Привет, дорогой читатель. Меня зовут Андрей Платов, и я программист. Нет, не так&amp;hellip; Меня зовут Андрей Платов, мне 40 лет, и я хочу стать программистом&amp;hellip; Так тоже можно, но не до конца верно&amp;hellip; Меня зовут Андрей Платов, я бывший программист, который долгое время не программировал, ни разу ни создавал веб-приложение, не знает Angual, React, да и вообще JavaScript и вновь хочет стать программистом.&lt;/p&gt;
-
-&lt;p&gt;Действительно, последнее ближе к правде, так получилось, что я долгое время занимался бизнесом, и не программировал (100 строк за пол-года не в счет). Сейчас бизнес подрос, и им занимаются замечательные люди, способные все сделать без моего участия. Я же теперь имею достаточное количество свободного времени, чтобы заняться программированием и наверстать упущеное.&lt;/p&gt;
-
-&lt;p&gt;Упущено мной многое, грубо говоря все самое интересное и востребованное: и Big Data, и High Load, и Machine Learning, и Artificial Intelligence, и DevOps с контейнерами и Haskell и даже JavaScript - ничего этого я не трогал.&lt;/p&gt;
-
-&lt;p&gt;Кроме, того учить что-то новое в 40 лет - это не так, как в 20, но, в отличии от 20-ти летнего пацана, у меня есть преимущество: прошлый опыт программирования, который, я уверен, будет мне полезен в освоении новых вещей. Помимо опыта у меня есть горячее желание вновь стать программистом (насколько в 40 вообще желание может быть горячим), и некоторое понимание того, как устроена жизнь.&lt;/p&gt;
-
-&lt;p&gt;Цель, ради которой, я иду в программисты должна быть большой, и мне потребуется некоторое время, и не один пост чтобы эту цель сформулировать. Пока же я озвучу задачу минимум в понятной большинству форме: &lt;strong&gt;уделать &lt;a href=&#34;http://bitrix24.ru&#34;&gt;Bitrix24&lt;/a&gt;&lt;/strong&gt;, ну и заодно всякие &lt;a href=&#34;http://amocrm.ru&#34;&gt;AmoCRM&lt;/a&gt;. А для этого мне, сначала, надо научиться делать Web приложения.&lt;/p&gt;
-
-&lt;p&gt;Интрига всей этой истории и проекта в том, что я правда никогда не делал Web-приложений, последний раз я трогал JavaScript и HTML примерно в 2000 году (как сейчас помню: тогда выходил HTML 4.0 и Microsoft сделал так назывемый DHTML - Dynamic HTML - это когда программно, с помощью JavaScript, можно поменять DOM). Но и тогда я программировал на JavaScript примерно одну ночь.&lt;/p&gt;
-
-&lt;p&gt;В общем как-то так. На этом сайте я буду делиться мыслями и прогрессом на пути старого ванаби-программиста к большой цели, что, в случае успеха должно вдохновить и помочь молодым ребятам, которые так же, как и я только в начале пути. Поехали!&lt;/p&gt;
 </description>
     </item>
     

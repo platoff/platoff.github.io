@@ -6,8 +6,36 @@
     <description>Recent content in Blog-rss on Сорок лет - это те же двадцать</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru-RU</language>
-    <lastBuildDate>Mon, 02 Jan 2017 10:19:40 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 03 Jan 2017 15:51:49 +0100</lastBuildDate>
     <atom:link href="https://platoff.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Leapfrog Triejoin</title>
+      <link>https://platoff.github.io/blog/leapfrog-triejoin/</link>
+      <pubDate>Tue, 03 Jan 2017 15:51:49 +0100</pubDate>
+      
+      <guid>https://platoff.github.io/blog/leapfrog-triejoin/</guid>
+      <description>&lt;p&gt;Итак, &lt;a href=&#34;https://platoff.github.io/blog/%D0%B7%D0%B0%D1%85%D0%BE%D0%B6%D1%83-%D1%81-%D0%B4%D1%80%D1%83%D0%B3%D0%BE%D0%B9-%D1%81%D1%82%D0%BE%D1%80%D0%BE%D0%BD%D1%8B/&#34;&gt;из вчерашнего&lt;/a&gt; мы узнали, что сердце моего движка запросов - &lt;a href=&#34;https://arxiv.org/abs/1210.0481&#34;&gt;Leapfrog Triejoin&lt;/a&gt; алгоритм. Надо закончить с выбором плана и построением соответствующих итераторов.&lt;/p&gt;
+
+&lt;p&gt;В общем, после всей ебаты на 300 строк, оно заработало. Сам join проще простого:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-Nimrod&#34; data-lang=&#34;Nimrod&#34;&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;join&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TrieJoin&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;TrieIter&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+  &lt;span class=&#34;n&#34;&gt;join&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;init&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;plan&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+  &lt;span class=&#34;k&#34;&gt;proc &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;joinOn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;leapfrog&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;join&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;open&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;leapfrog&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;atEnd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+      &lt;span class=&#34;n&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vars&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot; &amp;lt;- &amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;leapfrog&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;
+      &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;q&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vars&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;joinOn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+      &lt;span class=&#34;n&#34;&gt;leapfrog&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;next&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;join&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;up&lt;/span&gt;
+
+  &lt;span class=&#34;n&#34;&gt;joinOn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Результат под тегом &lt;a href=&#34;https://github.com/platoff/wafer/tree/day-170103&#34;&gt;&lt;code&gt;day-170103&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Захожу с другой стороны</title>
@@ -63,7 +91,7 @@ Anyway, it would be interesting to perform a clean performance comparison betwee
 
 &lt;h1 id=&#34;хуярю&#34;&gt;Хуярю&lt;/h1&gt;
 
-&lt;p&gt;Надо доделать сам join, сейчас у меня есть только план выполнения запроса. Но перед этим надо навести порядок с ебучей матрицей, которая у меня вдруг возникла. Последний раз я матрицу пользовал в школе, когда программировал пиксельную графику (и не для афинных преобразований &amp;ndash; я про них не знал ни тогда ни сейчас), а для того чтобы хранить пиксели. А из университета меня выгнали, так что матрицы я не программировал, и всегда считал что для программиста достаточно одномерного массива. Но все же в данном месте мне очень хочется ее засунуть.&lt;/p&gt;
+&lt;p&gt;Надо доделать сам join, сейчас у меня есть только план выполнения запроса. Но перед этим надо навести порядок с ебучей матрицей, которая у меня вдруг возникла. Последний раз я матрицу пользовал в школе, когда программировал пиксельную графику (и не для аффинных преобразований &amp;ndash; я про них не знал ни тогда ни сейчас), а для того чтобы хранить пиксели. А из университета меня выгнали, так что матрицы я не программировал, и всегда считал что для программиста достаточно одномерного массива. Но все же в данном месте мне очень хочется ее засунуть.&lt;/p&gt;
 
 &lt;p&gt;&amp;hellip;В общем хер с ним &amp;ndash; делать полноценное построение всех планов это подзаебаться, завтра сделаю чтобы работало в моих частных случаях. &lt;a href=&#34;https://github.com/platoff/wafer/commit/4bd155da9c37fa54cfeaad4ac5dce8d97d821371&#34;&gt;Коммит&lt;/a&gt;&lt;/p&gt;
 </description>
@@ -917,36 +945,6 @@ Anyway, it would be interesting to perform a clean performance comparison betwee
 &lt;h2 id=&#34;конец-дня&#34;&gt;Конец дня&lt;/h2&gt;
 
 &lt;p&gt;Вобщем потыкавшись, я понял что сделал глупость - алгоритм должен работать с глобальными интервалами, переделал Matchlist и получил работающий результат при s == 2. При s == 1 - падает, проблема в том что у меня рассинхрон курсора и списка интервалов в Matchlist в следствии объединения интервалов. В общем понятно как все привести в нормальный вид - это на завтра. Результат первого дня здесь: &lt;a href=&#34;https://github.com/platoff/faxma/tree/day-1&#34;&gt;https://github.com/platoff/faxma/tree/day-1&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Ебал я в рот ваш JavaScript</title>
-      <link>https://platoff.github.io/blog/%D0%B5%D0%B1%D0%B0%D0%BB-%D1%8F-%D0%B2-%D1%80%D0%BE%D1%82-%D0%B2%D0%B0%D1%88-javascript/</link>
-      <pubDate>Tue, 11 Oct 2016 17:04:14 +0300</pubDate>
-      
-      <guid>https://platoff.github.io/blog/%D0%B5%D0%B1%D0%B0%D0%BB-%D1%8F-%D0%B2-%D1%80%D0%BE%D1%82-%D0%B2%D0%B0%D1%88-javascript/</guid>
-      <description>
-
-&lt;p&gt;Моя первичная задача - научится делать веб-приложения (см. &lt;a href=&#34;https://platoff.github.io/about/&#34;&gt;Обо мне&lt;/a&gt;), и не охуеть от этого. Чувствую себя абсолютным ламером (не знаю говорят ли сейчас так, или это ругательство осталось в 90-х). Раньше я смеялся над людьми не способными разобраться с технологиями/проектами, но теперь я и сам достиг их уровня. Непонимая чего писать и с чего начинать, я купил курс (старость) на &lt;a href=&#34;https://egghead.io&#34;&gt;https://egghead.io&lt;/a&gt; - и пошел с самого начала.&lt;/p&gt;
-
-&lt;p&gt;Начинаю с туториала “Building a React.js App: Up and Running with React and Webpack”, ну то есть я написал сотню строк JS в 2000 году. На этом мое познание JavaScript закончилось, что такое Webpack я знаю не больше вашей мамы. Ах да, поставил себе atom и node.js. Поехали… моя ближайшая задача - сделать Hello World app на react.js&lt;/p&gt;
-
-&lt;p&gt;В общем после некоторой ебли с обновленными (уже после выхода урока на egghead) пакетами, я в режиме обезьяны повторил то, что мне показали в видосе. Вижу Hello World на экране, и какая-то магия, которую сделал за меня babel и webpack - не знаю кто из них что сделал и как они друг с другом договорились, но в общем я особо не переживаю - новичку типа меня это пока не важно - ибо работает (уволил бы такого кадра).&lt;/p&gt;
-
-&lt;p&gt;С туториалом покончено, двигаюсь дальше по egghead.io - в надежде стать (как обещает название ресурса) яйцеголовым. Перехожу к курсу Getting started with Redux, не спрашивайте почему так - просто иду туда, куда ведет меня жопа и ассоцитивная связь React - Redux (мозг уже на пенсии).&lt;/p&gt;
-
-&lt;p&gt;… Первые три видоса - какая то хуйня, смотреть не стал, как впрочем четвертый и пятый. Слишком много вещей которые мне не знакомы, включая тесты на каком-то джексоне. Как настроить environment, чтобы это повторить - в душе не ебу, нужен другой путь… Короче чувак в этом курсе как я понял хуярит в некоем jsbin - я хочу все иметь локально…&lt;/p&gt;
-
-&lt;p&gt;… Ушел в курс React: Flux Architecture (ES6)… Этот туториал повторить не вышло - думаю опять проблемы с тем что текущие версии пакетов из зависимостей несколько отличаются от версий супротив которых писался туториал - в результате заебался, скачал as is из туториального git, запустил - работает.&lt;/p&gt;
-
-&lt;p&gt;Выводы: кто там пиздел про DLL hell, Maven hell и прочий hell? Самый, как я сейчас понимаю, ацкий hell - это JavaScript World. Во всех других типах ада есть хоть какая то наводящая на проблему информация - а тут все собирается, все тулзы пишут OK, и нихуя не работает. Авторы &lt;a href=&#34;https://habrahabr.ru/post/312022/&#34;&gt;вот таких статей&lt;/a&gt; абсолютно правы: погружаться в JavaScript в 2016 можно только с горячим юным сердцем (и отвагой), мне же нужно было делать это раньше, либо не делать совсем.&lt;/p&gt;
-
-&lt;h1 id=&#34;решение&#34;&gt;Решение&lt;/h1&gt;
-
-&lt;p&gt;К большой цели я пойду другим путем, и это точно не будет путь JavaScript. Не React, не Angualar, не Redux и видимо ничего, что имеет отношение к этому миру. Буду как Donald Knuth - &lt;a href=&#34;https://www.youtube.com/watch?v=75Ju0eM5T2c&#34;&gt;не пойду за стадом&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Программировать я буду на языке более приятном: &lt;a href=&#34;http://nim-lang.org&#34;&gt;Nim&lt;/a&gt; - это один из немногих языков, с которым я чувствую себя комфортно. Даже не просто комфортно, на данный момент я считаю Nim &lt;a href=&#34;https://habrahabr.ru/post/259831/&#34;&gt;лучшим языком в мире&lt;/a&gt;. И никто не помешает мне делать веб-приложения на Nim, благо есть не менее замечательный &lt;a href=&#34;http://kripken.github.io/emscripten-site/&#34;&gt;Emscripten&lt;/a&gt;, да и &lt;a href=&#34;http://webassembly.org&#34;&gt;Webassembly&lt;/a&gt; на подходе.&lt;/p&gt;
 </description>
     </item>
     
