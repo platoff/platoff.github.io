@@ -55,7 +55,7 @@ Anyway, it would be interesting to perform a clean performance comparison betwee
 
 &lt;h1 id=&#34;новый-репозиторий&#34;&gt;Новый репозиторий&lt;/h1&gt;
 
-&lt;p&gt;Самое время во второй день нового года сделать новую репу, и залить туда всю гавнину. Тем более что старая &lt;a href=&#34;https://github.com/platoff/faxma&#34;&gt;faxma&lt;/a&gt; уже неактуальна ни своим названием /blog/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-2/ ни сутью. Вот оно: &lt;a href=&#34;https://github.com/platoff/wafer&#34;&gt;https://github.com/platoff/wafer&lt;/a&gt;. Web Application Framework (Elegant and Reactive).&lt;/p&gt;
+&lt;p&gt;Самое время во второй день нового года сделать новую репу, и залить туда всю гавнину. Тем более что старая &lt;a href=&#34;https://github.com/platoff/faxma&#34;&gt;faxma&lt;/a&gt; уже неактуальна ни своим названием ни сутью (&lt;a href=&#34;https://platoff.github.io/blog/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-2/&#34;&gt;объясняю почему я - дебил&lt;/a&gt;). Встречаем свежак: &lt;a href=&#34;https://github.com/platoff/wafer&#34;&gt;https://github.com/platoff/wafer&lt;/a&gt;. Web Application Framework (Elegant and Reactive).&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;leapfrog.nim&lt;/code&gt; реализация Leapfrog Triejoin. &lt;code&gt;rel.nim&lt;/code&gt; простое хранилище отношений. Отношение это набор tuples вида &lt;code&gt;[a b c ...]&lt;/code&gt;, и я предполгаю что все переменные в тупле фиксированной длинны, за исключением одной, которая может быть переменной длинны (этого допущения мне явно не хватит, но пусть пока так).&lt;/p&gt;
 
