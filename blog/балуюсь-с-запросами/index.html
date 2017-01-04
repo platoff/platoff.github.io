@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Don&#39;t panic">
+
+<base href="https://platoff.github.io/">
+<title>
+
+
+     Балуюсь с запросами 
+
+</title>
+<link rel="canonical" href="https://platoff.github.io/blog/%D0%B1%D0%B0%D0%BB%D1%83%D1%8E%D1%81%D1%8C-%D1%81-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC%D0%B8/">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://platoff.github.io/css/reset.css">
+<link rel="stylesheet" href="https://platoff.github.io/css/pygments.css">
+<link rel="stylesheet" href="https://platoff.github.io/css/main.css">
+
+
+    <link rel="stylesheet" href="https://platoff.github.io/css/override.css">
+
+
+
+<link rel="shortcut icon"
+
+    href="https://platoff.github.io/img/leaf.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="ru">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            
+              <a href="https://platoff.github.io/"><img class="avatar" src="https://platoff.github.io/img/avatar.jpg" /></a>
+            
+            <a href="https://platoff.github.io/"><div class="name">Андрей Платов</div></a>
+            <nav>
+                <ul>
+                    <a href="https://platoff.github.io/blog/"><li>Журнал</li></a>
+                    <a href="https://platoff.github.io/about/"><li>Обо мне</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/platoff" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/platoff" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/platov" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+            <a href="mailto:andrey@xored.com">
+                <i class="icon ion-ios-email larger"></i>
+            </a>
+        
+
+        
+            <a href="https://platoff.github.io/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Балуюсь с запросами
+
+</div>
+
+                    <div class="initials"><a href="https://platoff.github.io/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Wed Jan 4 2017 10:48:40 CET">Jan 4, 2017</div>
+                    <div class="reading-time"><div class="middot"></div>3 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>Отвелекусь немного на сами данные. Сейчас отношения примитивно и неоптимально со всех точек зрения. Пока я предполагаю что весь <code>state</code> (и persistent и transient) будет валятся в таких структурах. Хочется проверить насколько это все реально, соответственно хочу померить уже известную мне dbmonster модель. Захуярю-ка я ее в &ldquo;базу&rdquo;.</p>
+
+<p>В datomic (или RDF-alike) модель запихать монстра оказалось даже быстрее чем в объекты конкретных классов: вот весь код создания базы:</p>
+<div class="highlight"><pre><code class="language-Nimrod" data-lang="Nimrod"><span></span><span class="k">const</span>
+  <span class="n">DatabaseName</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">Elapsed</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+  <span class="n">Waiting</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+  <span class="n">SQL</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+  <span class="n">Queries</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="k">proc </span><span class="nf">genQuery</span><span class="p">(</span><span class="n">db</span><span class="p">:</span> <span class="n">DB</span><span class="p">):</span> <span class="n">E</span> <span class="o">=</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">getId</span><span class="p">()</span>
+  <span class="n">db</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">Elapsed</span><span class="p">,</span> <span class="n">random</span><span class="p">(</span><span class="mi">1500</span><span class="p">))</span>
+  <span class="n">db</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">Waiting</span><span class="p">,</span> <span class="n">random</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+  <span class="kd">var</span> <span class="n">query</span><span class="p">:</span> <span class="kt">string</span>
+  <span class="k">case</span> <span class="n">random</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+  <span class="k">of</span> <span class="mi">0</span><span class="p">:</span> <span class="n">query</span> <span class="o">=</span> <span class="s">&quot;vacuum&quot;</span>
+  <span class="k">of</span> <span class="mf">1</span><span class="p">..</span><span class="mi">2</span><span class="p">:</span> <span class="n">query</span> <span class="o">=</span> <span class="s">&quot;&lt;IDLE&gt; in transaction&quot;</span>
+  <span class="k">else</span><span class="p">:</span> <span class="n">query</span> <span class="o">=</span> <span class="s">&quot;SELECT blah FROM something&quot;</span>
+  <span class="n">db</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">SQL</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
+  
+<span class="k">proc </span><span class="nf">genDatabase</span><span class="p">(</span><span class="n">db</span><span class="p">:</span> <span class="n">DB</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="kt">string</span><span class="p">):</span> <span class="n">E</span> <span class="o">=</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">getId</span><span class="p">()</span>
+  <span class="n">db</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">DatabaseName</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="mf">0</span><span class="p">..</span><span class="n">random</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>       
+    <span class="n">db</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">Queries</span><span class="p">,</span> <span class="n">db</span><span class="p">.</span><span class="n">genQuery</span><span class="p">())</span>
+
+<span class="k">proc </span><span class="nf">getData</span><span class="o">*</span><span class="p">():</span> <span class="n">Db</span> <span class="o">=</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">newDB</span><span class="p">(</span><span class="o">[</span><span class="n">sizeof</span> <span class="n">E</span><span class="p">,</span> <span class="n">sizeof</span> <span class="n">A</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="n">Order</span><span class="p">(</span><span class="mh">0x123</span><span class="p">)</span><span class="o">]</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="mf">1</span><span class="p">..</span><span class="n">ROWS</span><span class="p">:</span>
+    <span class="k">discard</span> <span class="n">result</span><span class="p">.</span><span class="n">genDatabase</span><span class="p">(</span><span class="s">&quot;cluster&quot;</span> <span class="o">&amp;</span> <span class="o">$</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">discard</span> <span class="n">result</span><span class="p">.</span><span class="n">genDatabase</span><span class="p">(</span><span class="s">&quot;cluster&quot;</span> <span class="o">&amp;</span> <span class="o">$</span><span class="n">i</span> <span class="o">&amp;</span> <span class="s">&quot; slave&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Запускаем, и видим ожидаемую жопу: <code>1.8ms</code> на генерацию для 200 монстробаз. Это нативно. Напомню что оригинал генерировал данные за <code>0.36ms</code> нативно. Интересно, что уменьшая количество данных в 2 раза, время построения уменьшается линейно до 0.9ms, что говорит о том что неэффктивность где-то в сериализации тупла, а не в уебищной структуре данных (можно было ожидать что тормозит вставка с сортировкой, но походу нет).</p>
+
+<p>Пробую V8. Оригинал &ndash; <code>1ms</code>. &ldquo;База данных&rdquo; &ndash; полная сракотень <code>18.9ms</code>. С другой стороны, на V8 уменьшив объем данных в 10 раз получаю ускорение в 20 раз, до 0.8ms. Что нам это говорит? Видимо то что emscripten и движки JS пока далеки от генерации чего-то похожего на нативный код. Думаю что <code>memcpy</code> реализован циклом по массиву HEAP&hellip; Или чота типа того. Safari как всегда впереди всех - 14.7ms но тоже не торт. Возможно корень зла в emscripten и webassembly отожгет.</p>
+
+<p>Ладно, хер с ним переживать - все это можно оптимизировать в разы. Продолжу с сутью и давайте попробуем выбрать все запросы где <code>Waiting == true</code>. Для этого добавлю AVE индекс: <code>var monster = newDB([sizeof E, sizeof A, -1], [Order(0x123), Order(0x231)])</code></p>
+
+<p>Ха-ха-Ха ебать, и вот она - пизда! 10ms на итерацию в нативном коде. Ну конечно, идентификаторы триплов я генерировал последовательно, и они (триплы) добавлялись в конец, а с индексом понеслась пизда по кочкам, все таки структура данных (тупо массив) - откровенное гавно, но это меня не остановит.</p>
+<div class="highlight"><pre><code class="language-Nimrod" data-lang="Nimrod"><span></span>  <span class="kd">var</span> <span class="n">q</span> <span class="o">=</span> <span class="n">newQuery</span><span class="p">()</span>
+  <span class="n">q</span><span class="p">.</span><span class="n">pred</span><span class="p">(</span><span class="n">monster</span><span class="p">,</span> <span class="n">variable</span><span class="p">(</span><span class="s">&quot;?e&quot;</span><span class="p">),</span> <span class="n">constant</span><span class="p">(</span><span class="n">Waiting</span><span class="p">),</span> <span class="n">constant</span><span class="p">(</span><span class="kp">true</span><span class="p">))</span>
+  <span class="n">q</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="s">&quot;?e&quot;</span><span class="p">)</span>
+  <span class="n">q</span><span class="p">.</span><span class="n">prepare</span>
+  <span class="n">q</span><span class="p">.</span><span class="n">execute</span>
+</code></pre></div>
+
+<p>ОК, соснул, построились кривые итераторы не из того места&hellip; Починил, включая поддержку 32 бит. Осталось поправить багу (iter.up/iter.open должен перематывать итератор в начало), но бага мешает толко для &ldquo;плохих&rdquo; планов (так то нехуй ничо перематывать).</p>
+
+<p>А вот с запросами двигло работет побыстрее. Поиск монстробаз где <code>Waiting == true</code> &ndash; <code>5.5ms</code> на V8:</p>
+<div class="highlight"><pre><code class="language-Nimrod" data-lang="Nimrod"><span></span>  <span class="n">q</span><span class="p">.</span><span class="n">pred</span><span class="p">(</span><span class="n">monster</span><span class="p">,</span> <span class="n">variable</span><span class="p">(</span><span class="s">&quot;?q&quot;</span><span class="p">),</span> <span class="n">constant</span><span class="p">(</span><span class="n">Waiting</span><span class="p">),</span> <span class="n">constant</span><span class="p">(</span><span class="kp">true</span><span class="p">))</span>
+  <span class="n">q</span><span class="p">.</span><span class="n">pred</span><span class="p">(</span><span class="n">monster</span><span class="p">,</span> <span class="n">variable</span><span class="p">(</span><span class="s">&quot;?db&quot;</span><span class="p">),</span> <span class="n">constant</span><span class="p">(</span><span class="n">Queries</span><span class="p">),</span> <span class="n">variable</span><span class="p">(</span><span class="s">&quot;?q&quot;</span><span class="p">))</span>
+  <span class="n">q</span><span class="p">.</span><span class="n">pred</span><span class="p">(</span><span class="n">monster</span><span class="p">,</span> <span class="n">variable</span><span class="p">(</span><span class="s">&quot;?db&quot;</span><span class="p">),</span> <span class="n">constant</span><span class="p">(</span><span class="n">DatabaseName</span><span class="p">),</span> <span class="n">variable</span><span class="p">(</span><span class="s">&quot;?name&quot;</span><span class="p">))</span>
+  <span class="n">q</span><span class="p">.</span><span class="n">select</span><span class="p">(</span><span class="s">&quot;?name&quot;</span><span class="p">)</span>
+  <span class="n">q</span><span class="p">.</span><span class="n">prepare</span>
+  <span class="n">q</span><span class="p">.</span><span class="n">execute</span>
+</code></pre></div>
+
+<p>На сегодня с программированием завязал, надо подумать что со всем этим делать дальше. Код под тегом <code>day-170104</code>.</p>
+
+                <br>
+                <p><a href="https://platoff.github.io/blog/">Назад, к записям</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'platoff';
+    var disqus_identifier = 'https:\/\/platoff.github.io\/blog\/%D0%B1%D0%B0%D0%BB%D1%83%D1%8E%D1%81%D1%8C-%D1%81-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC%D0%B8\/';
+    var disqus_title = 'Балуюсь с запросами';
+    var disqus_url = 'https:\/\/platoff.github.io\/blog\/%D0%B1%D0%B0%D0%BB%D1%83%D1%8E%D1%81%D1%8C-%D1%81-%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D0%BC%D0%B8\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+</body>
+</html>
+
