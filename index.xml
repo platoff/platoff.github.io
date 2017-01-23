@@ -6,8 +6,99 @@
     <description>Recent content on Сорок лет - это те же двадцать</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru-RU</language>
-    <lastBuildDate>Tue, 10 Jan 2017 09:00:57 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 22 Jan 2017 11:51:09 +0100</lastBuildDate>
     <atom:link href="https://platoff.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Осознавая Ярило</title>
+      <link>https://platoff.github.io/blog/%D0%BE%D1%81%D0%BE%D0%B7%D0%BD%D0%B0%D0%B2%D0%B0%D1%8F-%D1%8F%D1%80%D0%B8%D0%BB%D0%BE/</link>
+      <pubDate>Sun, 22 Jan 2017 11:51:09 +0100</pubDate>
+      
+      <guid>https://platoff.github.io/blog/%D0%BE%D1%81%D0%BE%D0%B7%D0%BD%D0%B0%D0%B2%D0%B0%D1%8F-%D1%8F%D1%80%D0%B8%D0%BB%D0%BE/</guid>
+      <description>
+
+&lt;p&gt;Две недели пытался в муках родить &lt;a href=&#34;https://platoff.github.io/blog/%D1%8F%D1%80%D0%B8%D0%BB%D0%BE/&#34;&gt;Ярило&lt;/a&gt;. Хоть я и обещал себе сделать все проще, схематично, и &amp;ldquo;прототипично&amp;rdquo;, но руки не слушались. Выкинув несколько вариантов модели данных, я даже потратил несколько дней портируя на Nim замечательную реализацию языка &lt;a href=&#34;http://wren.io&#34;&gt;Wren&lt;/a&gt;, от &lt;a href=&#34;http://journal.stuffwithstuff.com&#34;&gt;Bob Nystrom&lt;/a&gt; - мне показалось что Ярило хорошо ляжет на его модель, но, потратив эти дни, я почувствовал что опять двигаюсь в какую-то неправильную сторону.&lt;/p&gt;
+
+&lt;p&gt;В результате я возвращаюсь примерно к тому же, что уже имел прошедшим летом в качестве прообраза &lt;a href=&#34;https://github.com/pragmagic/yarilo&#34;&gt;Ярило&lt;/a&gt;, но за эти две недели я родил одну важную мысль. Мысль кажется простой и с первого взгляда туповатой, но мне, по крайней мере в данный момент, она мне кажется важнейшей и ключевой: &lt;strong&gt;сборщика мусора не будет!&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Эта мысль у меня в голове расставила все на свои места. Чего я хочу? &lt;a href=&#34;https://platoff.github.io/blog/%D1%85%D0%BE%D1%87%D1%83-%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C-%D0%B2%D0%B5%D0%B1-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F/&#34;&gt;Я хочу делать Web-приложения&lt;/a&gt;, и под веб-приложениями я в первую очередь понимаю UI. Что такое UI? Это дерево. &lt;strong&gt;Дерево, блять!&lt;/strong&gt; Де-ре-во, а дерево &amp;ndash; это не граф. Какое замечательное свойство есть у дерева? В нем нет циклов, в нем (концептуально) на каждый элемент есть только &lt;strong&gt;одна ссылка&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Что такое state приложения в понимании большинства современных фреймворков? Это &lt;strong&gt;дерево&lt;/strong&gt;. Его так и называют - дерево состояния. Что такое UI приложение - это преобразование одного дерева в другое. Грубо говоря это то, чем пытается заниматься &lt;a href=&#34;https://facebook.github.io/react/&#34;&gt;React.js&lt;/a&gt; и его друзья. Этот фундаментальный взгляд на UI приложение я не буду оспаривать, я с ним согласен на 100%. Но я хочу &lt;a href=&#34;https://platoff.github.io/blog/%D0%B0-%D0%BD%D1%83%D0%B6%D0%B5%D0%BD-%D0%BB%D0%B8-%D1%8F%D0%B7%D1%8B%D0%BA-self-adjusting-computation/&#34;&gt;большего&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Мне нужен механизм (это может быть язык программирования) описания того как одни части дерева преобразуются в другие части. В моих фантазиях, такие преобразования могут зависить друг от друга. Например новая нода в дереве состояний порождает новую ноду в дом), а та, в свою очередь порождает еще одну ноду DOM (например с переводом текста, в случае если в некотором месте дерева состояния включена опция трансляции). И так далее.&lt;/p&gt;
+
+&lt;p&gt;Разницы между типами узлов дерева быть не должно. В том смысле что ноды состояния приложения, ноды описывающие DOM, или ноды хранящие трансиентные данные выглядят для приложения единообразно и я могу преобразовать что хочу во что хочу. Никто не мешает мне породить из UI некоторое состояние а потом его опять трансформировать в UI.&lt;/p&gt;
+
+&lt;p&gt;И самое важное: &lt;strong&gt;я не хочу задумываться о деталях&lt;/strong&gt;. Состояние может быть огромным (по размеру), но я как пользователь должен иметь единообразый доступ к нему всему. Точно так же UI - я даже не должен знать что некоторая нода - это UI элемент. Я лишь хочу описать правила транформации и запустить приложение.&lt;/p&gt;
+
+&lt;h1 id=&#34;сборка-мусора-и-linear-types&#34;&gt;Сборка мусора и Linear Types&lt;/h1&gt;
+
+&lt;p&gt;Итак, мысль о том что сборка мусора не нужна и что наше приложение &amp;ndash; дерево, упорядочила все у меня в голове и несколько повлияло на дизайн языка. К сожалению, или к счастью, это не будет язык общего назначения. Концептуально &amp;ndash; все данные храняться в дереве, и только в дереве. Это значит, что если нода A и нода B не может иметь общего ребенка C. Даже если С ноды B создается из C ноды A в процессе трансформации &amp;ndash; то создасться копия C. Несомненно надо предусмотреть оптимизацию для immutable данных - в этом случае копия не имеет смысла, но опять же концептуально пользователь работает с деревом и только с деревом &amp;ndash; копируются ли immutable данные под капотом или нет &amp;ndash; не должно волновать пользователя.&lt;/p&gt;
+
+&lt;p&gt;Я конечно погуглил на тему этой деревянной идеи - ничего толком не нашел, кроме &lt;a href=&#34;https://en.wikipedia.org/wiki/Substructural_type_system#Linear_type_systems&#34;&gt;Linear Types&lt;/a&gt; - это не совсем мой случай, а более общий, когда на объект может существовать одна и только одна ссылка. По теме не так много статей, и в основном недоступная мне математика о Linear Logic, но есть очень интересные стайки от &lt;a href=&#34;http://www.pipeline.com/~hbaker1/home.html&#34;&gt;Henry Baker&lt;/a&gt;, например о &lt;a href=&#34;http://www.pipeline.com/~hbaker1/LinearLisp.html&#34;&gt;Linear Lisp&lt;/a&gt; и стековых машинах в этом контексте &lt;a href=&#34;http://www.pipeline.com/~hbaker1/ForthStack.html&#34;&gt;Linear Logic and Permutation Stacks&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Этот путь (в Linear Logic) слишком умный для меня, я лишь буду руководствоваться правилом дерева. Технически, на ноду придется ссылаться не только из родительской ноды но и из обработчиков событий, процессов транформации, и так далее. Но еще раз: такие ссылки &amp;ndash; это забота движка. Концептуально данные &amp;ndash; дерево. Убили ноду &amp;ndash; все, кирдык, если кто-то ее слушал и во что-то трансформировал, то и ему кирдык &amp;ndash; трансформировался в ноль (хотя теоретически он может трансформировать &amp;ldquo;нулевую&amp;rdquo; ноду во что-то осмысленное).&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>А нужен ли язык? (Self-adjusting Computation)</title>
+      <link>https://platoff.github.io/blog/%D0%B0-%D0%BD%D1%83%D0%B6%D0%B5%D0%BD-%D0%BB%D0%B8-%D1%8F%D0%B7%D1%8B%D0%BA-self-adjusting-computation/</link>
+      <pubDate>Thu, 12 Jan 2017 17:28:05 +0200</pubDate>
+      
+      <guid>https://platoff.github.io/blog/%D0%B0-%D0%BD%D1%83%D0%B6%D0%B5%D0%BD-%D0%BB%D0%B8-%D1%8F%D0%B7%D1%8B%D0%BA-self-adjusting-computation/</guid>
+      <description>&lt;p&gt;Зачем мне свой язык? Я не собираюсь делать язык ради языка, возможно я смогу обойтись без самодельного языка - и это было бы хорошо. Но пока не очень получается.&lt;/p&gt;
+
+&lt;p&gt;Много думая об управлении состоянием приложения (в общем про то что делают ваши всякие flux/redux и так далее, в которые я тоже не вдупляю) я все чаще и чаще попаю на статьи о self-adjusted или incremental computations. Сейчас у вас популярны всяческие RxJS и подобные, и честно скажу я сам зафанател от ориниального Rx (Microsoft) в году так 2008, но все же по этому пути я не пойду: Erich, создатель Rx сделал выдающуюся вещь показав реактивные (асинхронные) counterparts синхронным примитивам типа Enumeration, которые мы пользовали всю жизнь, и он гений.&lt;/p&gt;
+
+&lt;p&gt;Но говорить о том что мои приложения будут основаны на Observables это то же что и говорить что мои приложения будут основаны на Enumerables - если первое звучит только модно, не более, то и первое и второе по сути - хуйня и не о чем. Это не отменяет возможность использования мной реактивных паттернов, но  еще раз скажу что сам по себе Rx никаких фундаментальных проблем не решит.&lt;/p&gt;
+
+&lt;p&gt;Для тех кто впервые слышит о self-adjusting computation, го на сайт Umut Acar - &lt;a href=&#34;http://www.umut-acar.org/self-adjusting-computation&#34;&gt;сайт Umut Acar&lt;/a&gt;, это чувак много лет занимающийся этим вопросом, там же можно найти некоторые статьи по теме.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Self-adjusting computation refers to a model of computing where computations can automatically respond to changes in their data&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Я пролистал довольно много статей о self-adjusting computations, штука эта действительно выглядит мощно для UI приложений и не только, но и с первого взгляда не нова - грань между FRP и self-adjusted computation довольно тонка: и то и другое можно применять, и применяется для одних и тех же целей - декларативно описать вычисления и пойти курить оставив компьютер заниматься персчетом результатов при изменении входных данных (я сейчас очень грубо).&lt;/p&gt;
+
+&lt;p&gt;И если мы стараемся не углубляться в разницу между тем и другим, то в мире JavaScript было и есть несколько продуктов близких к тому что мне хочется:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Жемчужина - это, конечно, &lt;a href=&#34;http://www.flapjax-lang.org&#34;&gt;Flapjax&lt;/a&gt;. Как это часто бывает с жемчужинами - они опережают время (готовность масс понять и принять), и умирают раньше чем стать тем, что пользует весь мир. Так было с объектно-ориентированными базами данных, да и много с чем. В общем очень достойная вещь и на пейпер flapjax есть много ссылок из вполне себе научных статек, жаль только то что самого flapjax уже нет.&lt;/li&gt;
+&lt;li&gt;Есть на первый взгляд хороший выходец из практических кругов &lt;a href=&#34;https://github.com/mobxjs/mobx&#34;&gt;MobX&lt;/a&gt; - они себя называют TFRP (transparent functional reactive programming), пусть будет так - о терминах я спорить не буду.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ну и куча других проектов на различных языках, которые гуглятся по словам reactive и functional, но так легко докатиться до &lt;a href=&#34;http://elm-lang.org&#34;&gt;Elm&lt;/a&gt;. Я сознательно не упоминал Elm упоминая FRP. Elm - фантастическая вещь, лично для меня понятная и приятная тем, что у меня очень быстро получилось написать и запустить простенькую программу на Elm, чего я не смог сделать с помощю довольно мейнстримовых React, Cycle.js и подобное - количество пиздеца которое у меня не работает и количество обращений к гуглу бъет по моим нервам так что я бросаю это дело.&lt;/p&gt;
+
+&lt;p&gt;Так, Elm можно считать эталоном FRP в вебе на данный момент. У проекта есть все - и сильный теоретический бекграунд (ссылок на &lt;a href=&#34;http://people.seas.harvard.edu/~chong/pubs/pldi13-elm.pdf&#34;&gt;Elm папер&lt;/a&gt; не меньше чем на flapjax) и прекрасная реализация. Все же, несморя на то что я часто говорю о теоретических основах, я чел необразованный &amp;ndash; просто практик. Со всем уважением относясь к мотивации создателя Elm не делать first-class сигналы (ее невозможно оспорить, по крайней мере такому неспециалисту как я) - я чувствую, что на практике мне Elm не хватит. Мне хочется решения, которое позволит мне сколь угодно сложно менять граф вычислений во время исполнения, а это как я понимаю - главная проблема всех FRP решений на данный момент. Поэтому мне очень хочется выйти за рамки FRP (в понимании Elm) и я хочу посмотреть в какие-то другие стороны. Отсюда MobX и self-adjusting computation.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ярило</title>
+      <link>https://platoff.github.io/blog/%D1%8F%D1%80%D0%B8%D0%BB%D0%BE/</link>
+      <pubDate>Wed, 11 Jan 2017 12:47:07 +0100</pubDate>
+      
+      <guid>https://platoff.github.io/blog/%D1%8F%D1%80%D0%B8%D0%BB%D0%BE/</guid>
+      <description>
+
+&lt;p&gt;Итак, &lt;a href=&#34;https://platoff.github.io/blog/%D0%BF%D1%80%D0%BE-%D1%85%D0%BE%D1%80%D0%BE%D1%88%D0%B8%D1%85-%D0%B8-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B7%D0%BD%D1%8B%D1%85-%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82%D0%BE%D0%B2/&#34;&gt;я возвращаюсь к Ярило&lt;/a&gt;. Как я уже писал - мне не нужны инновации, мне нужен некоторый скриптинг язык, требования к которому я уточню по ходу. Но часть требований уже сейчас понятна.&lt;/p&gt;
+
+&lt;h1 id=&#34;минимальные-требования&#34;&gt;Минимальные требования&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Я бы хотел &lt;a href=&#34;https://en.wikipedia.org/wiki/Homoiconicity&#34;&gt;Homoiconic Language&lt;/a&gt;. Язык, который хорошо подходит для создания DSL-ей. В этом случае на ум сразу приходит LISP. Современным чуавкам еще придет на ум Julia, но ее корни тоже в LISP, вернее в Scheme. Кому то придет в голову TCL, и так далее. В общем Lisp &amp;ndash; очевидный выбор, но ни одна моя попытка научиться легко программировать на Lisp не увенчалась успехом. Вместо Lisp я буду черпать вдохновение в &lt;a href=&#34;https://en.wikipedia.org/wiki/Rebol&#34;&gt;REBOL&lt;/a&gt;, который так же похож на Lisp как и не похож. Этих сходств и различий достаточно для того чтобы я (лично) мог программировать на Rebol не испытывая сложностей, одновоременно чувствуя всю &amp;ldquo;мощь&amp;rdquo; Lisp.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;REPL-oriented. Хороший пример REPL-ориентированного языка &amp;ndash; &lt;a href=&#34;https://en.wikipedia.org/wiki/PowerShell&#34;&gt;Microsoft PowerShell&lt;/a&gt;, но и TCL, да и вообще все Homoiconic языки достаточно неполхи для REPL. Что нужно сделать с Rebol, чтобы добавить удобства как REPL инструмента, я посмотрю в процессе.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;поехали&#34;&gt;Поехали&lt;/h1&gt;
+
+&lt;p&gt;Постараюсь обойтись без прошлых ошибок и достигнуть полезного результата с минимальными усилиями. Соответственно:&lt;/p&gt;
+
+&lt;p&gt;Отказываюсь от собственного GC и эффективного представления данных. Буду пользоваться GC предоставленным Nim, а соответственно структуры данных должны быть понимаемыми Nim. Значит отказываемся от тегирования указателей и прочих фишек - наша память должна выглядить для Nim как родная. В этом есть свой плюс - interoperability с Nim, но и минус в потере эффективности из за некоторой несовместимости моделей (у меня динамическая, и, возможно, слабая типизация).&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Про хороших и полезных программистов</title>
@@ -59,7 +150,7 @@
 
 &lt;p&gt;Я более чем уверен, что если бы тебя погрузили в ту ситуацию, и попросили найти оптимальное решение &lt;em&gt;всех&lt;/em&gt; стоящих задач &amp;ndash; ты бы не справился. В жизни часто бывает, что написать &amp;ldquo;хороший&amp;rdquo; код это не оптимальное, а часто губительное в долгосрочной перспективе решение для проекта. Да и не факт что твой код был бы лучше (хотя тут мы опять уходим в определение &amp;ldquo;хорошего&amp;rdquo;).&lt;/p&gt;
 
-&lt;p&gt;К чему я все это написал? Ах, да, пора мне вернуться к Ярило, и все таки написать этот язычок, и поскольку теперь у меня есть [цель]((/about/), то в этот раз работа моя должна быть полезной.&lt;/p&gt;
+&lt;p&gt;К чему я все это написал? Ах, да, пора мне вернуться к Ярило, и все таки написать этот язычок, и поскольку теперь у меня есть &lt;a href=&#34;https://platoff.github.io/about/&#34;&gt;цель&lt;/a&gt;, то в этот раз работа моя должна быть полезной.&lt;/p&gt;
 </description>
     </item>
     
@@ -659,216 +750,6 @@ Anyway, it would be interesting to perform a clean performance comparison betwee
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Завтра лечу в Прагу, а в дороге пока не получается работать. А пока результаты под тегом &lt;code&gt;day-6&lt;/code&gt; &lt;a href=&#34;https://github.com/platoff/faxma/tree/day-6&#34;&gt;https://github.com/platoff/faxma/tree/day-6&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Проебаный день</title>
-      <link>https://platoff.github.io/blog/%D0%BF%D1%80%D0%BE%D0%B5%D0%B1%D0%B0%D0%BD%D1%8B%D0%B9-%D0%B4%D0%B5%D0%BD%D1%8C/</link>
-      <pubDate>Tue, 22 Nov 2016 11:28:50 +0100</pubDate>
-      
-      <guid>https://platoff.github.io/blog/%D0%BF%D1%80%D0%BE%D0%B5%D0%B1%D0%B0%D0%BD%D1%8B%D0%B9-%D0%B4%D0%B5%D0%BD%D1%8C/</guid>
-      <description>&lt;p&gt;День проебан. Будем считать, что на пятый день от начала программирования я отдыхал. Я не Бог, я только учусь.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Немного про тестирование</title>
-      <link>https://platoff.github.io/blog/%D0%BD%D0%B5%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D1%80%D0%BE-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5/</link>
-      <pubDate>Mon, 21 Nov 2016 20:23:41 +0100</pubDate>
-      
-      <guid>https://platoff.github.io/blog/%D0%BD%D0%B5%D0%BC%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D1%80%D0%BE-%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5/</guid>
-      <description>
-
-&lt;p&gt;Сегодня не программировал, пол-дня покатался по побережью в попытке открыть счет в банке. Форма на сайте не работает - думал зайти физически, но в понедельник отделение оказалось закрыто. Вторую половину дня слегка уделил бизнесу: написал письмо коллегам и кастомерам, которое по большей части и прилагаю (за исключением коммерческих деталей).&lt;/p&gt;
-
-&lt;h1 id=&#34;про-тестирование&#34;&gt;Про тестирование&lt;/h1&gt;
-
-&lt;p&gt;Всем привет!&lt;/p&gt;
-
-&lt;p&gt;Саша Т. написал достойный анализ ситуации и разумные предложения по тестированию. Но Саша писал их “изнутри системы”, я же хотел бы поделится мыслями и наблюдением “снаружи”.&lt;/p&gt;
-
-&lt;p&gt;Мысль следующая: “Команда X (как единое целое) не считает тестирование чем то важным”. Поскольку эта “мысль” выглядит как камень в огород команды - у меня есть неколько пояснений, почему это так и почему не стоит воспринимать ее в штыки.&lt;/p&gt;
-
-&lt;p&gt;Во-первых, очень многие команды не воспринимают тестирование серьезно. Во-вторых, на каких-то этапах развития проекта любое тестирование (ручное, автоматическое, и так далее) на самом деле не только не важно, но и является бессмысленной тратой времени и денег. В третьих - я сам до 2005 года считал тестирование пустой тратой времени (которое гораздо важнее потратить на разработку), и я уверен очень многие и сейчас думают так, как старый (вернее, молодой я).&lt;/p&gt;
-
-&lt;p&gt;Действительно, если комада постоянно переделывает предмет тестирования, каждый раз выдавая новый предмет, с другим интерфейсом (API или визуальным), с другим поведением, и так далее, то какой смысл тратить силы на тестирования предмета, на смену которому завтра придет другой (скорее всего новый предмет будет называться так же как и предыдущий, но пусть нас это не обманывает - это будет новый предмет).&lt;/p&gt;
-
-&lt;p&gt;Теперь про то почему я считаю что “Команда X (как единое целое) не считает тестирование чем то важным” (еще раз это ни хорошо и не плохо, это просто факт, и серьезное отношение к тестированию безусловно бы привело к просадке в других местах, например в скорости реализации новых фич).&lt;/p&gt;
-
-&lt;p&gt;Первое: отсутствие Continuous Integration. Поставить сервер Continuous Integration - это не значит что у вас есть Continuous Integration. Это значит что у вас есть в лучшем случае &lt;em&gt;автоматизированная сборка&lt;/em&gt;. Continuous Integration - это &lt;em&gt;процесс&lt;/em&gt; разработки. Неотъемлемая часть такого процесса -  “зеленый билд” и автоматизированные тесты. “Зеленый билд” это вообще лакмусовая бумажка, показывающая наличие или отсутствие Continuous Integration процесса и &lt;em&gt;отношение&lt;/em&gt; команды к тестированию.&lt;/p&gt;
-
-&lt;p&gt;Тестирование (и тесты) могут быть важнейшей частью процесса разработки, а могут быть несерьезное как у меня до 2005 года: я конечно не против если кто-то помогает мне с тестированием, и даже находит баги необходимые к починке, и если меня бы спросили  о тестировании я бы ответил, что да мы тестируем, и у нас есть тесты и люди-тестировнщики, и это все очень полезно, но все это &lt;em&gt;несерьезное&lt;/em&gt; отношение к тестированию, поскольку для меня тогда тесты не были важнейшей и неотъемлемой частью процесса.&lt;/p&gt;
-
-&lt;p&gt;Вообще, чтобы команда серьезно озаботилась тестированием &lt;em&gt;необходимы&lt;/em&gt; два магических компонента: &lt;em&gt;кастомеры&lt;/em&gt; и &lt;em&gt;регулярные обновления&lt;/em&gt;. Без этих двух вещей магия не случится, и можно долго рассуждать о тестировании, но все это будет не серьезно (как бы серьезно мы не звучали и с какой бы серьезностью мы не утверждали обратное). Чем &lt;em&gt;важнее&lt;/em&gt; кастомеры, и чем &lt;em&gt;регулярнее&lt;/em&gt; обновления, тем серьезнее у команды отношение к тестированию.&lt;/p&gt;
-
-&lt;p&gt;Это непреложное правило которое очень просто работает: если обновления редки (раз в пол-года, или даже раз в квартал), то команда надеется на себя (и это очень правильно): у команды найдется достаточно времени перед релизом (ну или она так наивно полагает, что время найдется) для того, чтобы “отрелизится”. Пофиксить баги, и выкатить “релиз” за который не стыдно, ну или там не дадут по голове. В таком режиме нет очевидных причин относится к тестированию серьезно и тратить на него немалый ресурс.&lt;/p&gt;
-
-&lt;p&gt;Изменение сознания происходит когда продукт начинает уходить кастомерам чаще: раз в месяц или раз в две недели. Лучше раз в две недели - в таком режиме команде &lt;em&gt;не на что надеятся, кроме тестов&lt;/em&gt;. У нее нет времени на “релизы” (под релизами понимается тот процесс который у многих происходит перед релизом - feature freeze, починка багов, тестирование, починка багов и с начала). Даже если заниматься “выпуском продукта в мир” одну неделю (что очень жестко для большого продукта), при релизах раз в две недели времени на разработку практически не остается.&lt;/p&gt;
-
-&lt;p&gt;Сознание меняется у всей команды: с &lt;em&gt;самого верха&lt;/em&gt; до самого низа. И это в первую очередь касается &lt;em&gt;процессов&lt;/em&gt;. Дело даже не в самих тестах и инструментах. К любой команде можно “прикрепить” отдел тестирования с самыми лучшими специалистами и инструментами, и ничего существенно не изменится. Серезное отношение определяется не количеством и качеством людей участвующих в процессе тестирования, а отношением к нему лидера, программистов, всех остальных участников. Это отношение определяет (влияет на) процесс разработки в целом. Чтобы поставть такой процесс необходим высочайший административный ресурс проекта. Такой процесс может поставить только человек, с высшими командными полномочиями.&lt;/p&gt;
-
-&lt;p&gt;Возьмем, к примеру, пресловутый “зеленый билд”. Какой бы замечательной не была команда QA, только с высоты управления всем проектом можно “нагнуть” всех у частников проекта на то, что без “зеленого билда” нет будущего - и понизить приоритет &lt;em&gt;всем&lt;/em&gt; задачам пока такой сборки не будет. Никто другой, кроме лидера проекта не обладает для этого досточными полномочиями.&lt;/p&gt;
-
-&lt;p&gt;Далее: меняется отношение к тестам - не важно какую замечтельную фичу или что-то там ты сделал, если твое изменение ломает билд - твоего кода просто не существует (до выяснения проблемы). Качество кода, определяемое тестами, становится приоритетнее всего остального. Наполнение тестами тестовой базы приносит радость, а людей которые ее наполняют целуют в задницу, ибо наконец на собственном опыте почувствовали как они облегчают им жизнь.&lt;/p&gt;
-
-&lt;p&gt;Проект с серьезным отношением к тестам - это дорого. Это время разработчиков. Они не могут забить на непроходящие тесты, они вынужденны докапываться до истины, а не просто перекидывать проблему на соседа (“это вроде у тебя там”) и обратно. Это время на создание инструментария: как бы там ни казалось в любом крупном продукте с серьезным отношением к тестированию присутсвуют самодельные тествые фреймворки и инстументы написанные под их специфику - я не раз про такое слышал общаясь с людми про RCPTT, и количество кода в проекте созданного исключительно для тестирования может достигать 50% кодовой базы.&lt;/p&gt;
-
-&lt;h2 id=&#34;конкретика-по-нашей-ситуации&#34;&gt;Конкретика по нашей ситуации&lt;/h2&gt;
-
-&lt;p&gt;&amp;hellip;вырезано&amp;hellip;&lt;/p&gt;
-
-&lt;h2 id=&#34;опыт&#34;&gt;Опыт&lt;/h2&gt;
-
-&lt;p&gt;Мы участвуем в разных проектах с разным отношением к тестированию. Кто-то серьезно вкладывается в тестирование и качество и всегда имеет на руках качественный продукт. Кто-то не парится по поводу тестирования и быстро идет вперед. Невозможно иметь и то и другое (и дело даже не в том что это безумно дорого), дело еще и в том что одно частично противоречит другому - быстрое движение вперед прямо зависит от скорости изменений, качество зависит обратным образом.&lt;/p&gt;
-
-&lt;p&gt;Соответственно, отношение проекта к тестированию должно определятся стратегией на высшем уровне. Расстановкой приоритетов между качеством/фичами, и так далее. Инструменты и тестировщики в вопросах тестирования дело уже второе.&lt;/p&gt;
-
-&lt;p&gt;Какой подход выбрать - стратегический вопрос, который должно решать руководство. Исторически так случилось, что Саша Т. и девочки что-то пытаются сделать с тестированием не имея ни полномочий ни ресурсов добится чего-либо существенного в этой области. Хотелось бы снять с нас эту ответственность и предать лицу обладающему такими возможностями. Что касается ресурсов (тестировщиков), если в людях есть необходимость, то я думаю нет никаких проблем девушкам продолжать заниматься тестированием под соответсвующим руководителем выполняя задачи им поставленные.&lt;/p&gt;
-
-&lt;p&gt;Простите за длинное письмо, я даже не думаю что мои мысли что-то изменят, но для того, чтобы быть “на одной странице” и конкретного разговора про дальнейшие шаги в тестировании, давайте определимся с важнейшим вопросом: разработка X - &lt;em&gt;это Continuous Integration процесс или нет&lt;/em&gt;? От ответа на этот вопрос зависит гораздо больше чем кажется на первый взгляд.&lt;/p&gt;
-
-&lt;p&gt;Спасибо,
-Платов&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Virtual DOM (День 3)</title>
-      <link>https://platoff.github.io/blog/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-3/</link>
-      <pubDate>Sun, 20 Nov 2016 10:00:56 +0100</pubDate>
-      
-      <guid>https://platoff.github.io/blog/virtual-dom-%D0%B4%D0%B5%D0%BD%D1%8C-3/</guid>
-      <description>
-
-&lt;p&gt;Сегодня хочется сделать хоть какой-то diff, и погонять dbmonster. Думаю что для начала не буду делать match детей вообще, а пропатчу их один в один. Модель данных для DBMonster генерирую каждый раз случайно - получаю примерно 3000 инстансов данных в секунду. Все замеры в этом блоге я делаю на слабеньком MacBook 12&amp;rdquo; Early 2015, компилирую с -d:release. В браузере все будет медленее (например в 10 раз) и мне нужно в принципе понять стоит ли овчина выделки.&lt;/p&gt;
-
-&lt;h1 id=&#34;dbmonster&#34;&gt;DBMonster&lt;/h1&gt;
-
-&lt;p&gt;Код готов, и конечно такая генерация DOM совсем не для ручек - выглядит оно вот так:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-Nimrod&#34; data-lang=&#34;Nimrod&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;proc &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;render&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DOMBuilder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;openTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Tag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# table&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;table table-striped latest-data&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;openTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Tag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tbody&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# tbody&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;db&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;databases&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;openTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Tag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# tr&lt;/span&gt;
-
-    &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;openTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Tag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;td&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# td&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;dbname&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;textString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;db&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;closeTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# /td&lt;/span&gt;
-
-    &lt;span class=&#34;k&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;db&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;queries&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;openTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Tag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;td&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# td&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;query-count&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;openTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Tag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;span&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;#span&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;className&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;db&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;textString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;closeTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# /span&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;closeTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# /td&lt;/span&gt;
-
-    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-      &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;query&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;db&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;queries&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;openTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Tag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;td&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# td&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;className&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;query&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;textString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;formatFloat&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;query&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;elapsed&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ffDecimal&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;openTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Tag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.`&lt;/span&gt;&lt;span class=&#34;ow&#34;&gt;div&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;`)&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# div&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;popover left&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;openTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Tag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.`&lt;/span&gt;&lt;span class=&#34;ow&#34;&gt;div&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;`)&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# div&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;popover-content&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;textString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;query&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;query&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;closeTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# /div&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;openTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Tag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.`&lt;/span&gt;&lt;span class=&#34;ow&#34;&gt;div&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;`)&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# div&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;arrow&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;closeTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# /div&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;closeTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# /div&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;closeTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# /td&lt;/span&gt;
-      &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;openTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Tag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;td&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# td&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;class&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;Query&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;width&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;40&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot; &amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;closeTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# /td&lt;/span&gt;
-
-    &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;closeTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# /tr&lt;/span&gt;
-
-  &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;closeTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# /tbody&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;builder&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;closeTag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;c&#34;&gt;# /table&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Немного текущей статистики: дервяха занимает 325К в памяти включая 25К нестатичных строчек (текстовые ноды). Генерирую 1000 таких деревях в секунду и похоже уже подхожу к пределу (если замедлится в 10 раз в браузере - это будет 10ms на деревяху, а нам еще делать diff). Сейчас подстрахуюсь и посмотрю как все это будет работать в браузере, а пока надо пообедать.&lt;/p&gt;
-
-&lt;h1 id=&#34;скорость&#34;&gt;Скорость&lt;/h1&gt;
-
-&lt;p&gt;Начинаю напрягаться. Во первых пришлось отключить Nim GC - просто падало. Без GC моя node.js v4.1.1 (не знаю пока насколько она стара) показала 7.2 ms на итерацию (а значит я уже приближаюсь к установленному мной пределу в &lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;60&lt;/sub&gt;-ю секунды). Пока не знаю сколько из этих миллисекунд занимает генерация модели. Сафари порадовал - 5.5 ms на итерацию. Скрещиваю пальцы и пробую Chrome (54.0.2840.98) - 7-8 ms. Ебаный в рот, думаю под это дело скачать FireFox. Chrome 57.0.2926.0 canary - 7-8 ms. Тем временем выясняю что модель генерируется половину времени (3.5ms на V8 и 2.3ms Safari). Столько же генерирую деревяху.&lt;/p&gt;
-
-&lt;p&gt;Скачал Firefox 50.0 - ведет себя как полная жопа - подвисает и 15ms на итерацию. Либо я его не умею готовить, либо с Firefox мне не по пути&amp;hellip; Вообще ситуация с FireFox странная - прогнал перформанс тесты asm.js &lt;a href=&#34;http://kripken.github.io/Massive&#34;&gt;http://kripken.github.io/Massive&lt;/a&gt; - Firefox у меня показывает гораздо лучшие результаты по сравнению с Chrome. Может в моем случае, и поскольку мой скрипт пускается сразу просле загрузки страницы Firefox &amp;ldquo;не успел&amp;rdquo; включить свой JIT, AOT, или чо он там включает. Как бы там ни было, и пока у меня остается теоретическая возможность выдать 60 FPS на Safari и Chrome, я продолжу. Остается за 8ms сделать diff, применить patch, и дать браузеру возможность все это дело отрисовать :). Звучит unreal, но буду пробовать.&lt;/p&gt;
-
-&lt;h1 id=&#34;баг-или-data-alignment-is-still-important&#34;&gt;Баг (или Data alignment is still important)&lt;/h1&gt;
-
-&lt;p&gt;Сделал печать рендеренного HTML - надо же постореть наконец что там генерится. И конечно не обошлось без багов :). Nim (умница) делает enum длины достаточной для того чтобы хранить все значения. Я пока использую enum для тегов и аттрибутов и при их записи в выхлоп писал один байт (в башке я держал что будет int). В результате все перекособочилось, но радость не в этом - дело в том что из за бага я читал unaligned data. Где то мне попадалась инфа что современным процам плевать - но у меня проц видимо старый. Нативный dbmonster теперь рендерит модель и деревяху за 0.9ms. NodeJS за 6.2ms. Мачо Safari за 4.2 :) Да, кстати бага не повлияла на количество памяти которое жрет деревяха (размер ноды я считал сам).&lt;/p&gt;
-
-&lt;h1 id=&#34;заход-со-стороны-браузера&#34;&gt;Заход со стороны браузера&lt;/h1&gt;
-
-&lt;p&gt;До сих пор я не трогал непоянтный мне JavaScript, но руки вдруг зачесались увидить что-нибудь в браузере. Построить DOM по моей деревяхе будет тривиальной задачей, но есть варианты в интеграции с JavaScript миром. Для начала попробую самое простое - читать asm.js heap из JS и строить DOM. Должно быть не намного сложнее простой его распечатки:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-Nimrod&#34; data-lang=&#34;Nimrod&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;proc &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;toHtml&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Element&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;level&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;spaces&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;level&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;sc&#34;&gt;&amp;#39;&amp;lt;&amp;#39;&lt;/span&gt;
-  &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Tag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;attrs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;attrs&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nAttrs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;sc&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;attrs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;attr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;=&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\&amp;quot;&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;attrs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;sc&#34;&gt;&amp;#39;&amp;quot;&amp;#39;&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nKids&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;/&amp;gt;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;&lt;/span&gt;
-  &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;&amp;gt;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;kids&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kids&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;..&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nKids&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-      &lt;span class=&#34;n&#34;&gt;toHtml&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;kids&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;level&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;spaces&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;level&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;&amp;lt;/&amp;quot;&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Tag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tag&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;quot;&amp;gt;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Выглядить это будет примерно так: добавляем библиотку к emscripten runtime:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;mergeInto&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;LibraryManager&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;library&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-  &lt;span class=&#34;nx&#34;&gt;JSrender&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
-    &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Hello from emscripten: &amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;HEAP32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[((&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)])&lt;/span&gt;
-    &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;
-    &lt;span class=&#34;nx&#34;&gt;console&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;log&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Hello from emscripten: &amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;HEAP32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[((&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)])&lt;/span&gt;    
-  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Из nim все просто:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-Nimrod&#34; data-lang=&#34;Nimrod&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;proc &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;JSrender&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;ptr&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;importc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.}&lt;/span&gt;
-&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;42&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;777&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;JSrender&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;cast&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;ptr&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;addr&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;h1 id=&#34;ебать-мой-хуй-сука-карл&#34;&gt;Ебать мой хуй сука, Карл&lt;/h1&gt;
-
-&lt;p&gt;Думал перед сном накидать рендеринг на JS - но хуй то там. Порт toHtml в тупую не работает - сносит крышу на некотором уровне рекурсии. Я уж подумал почитать как там у JavaScript дела с рекурсией (но по всем понятиям должно быть хорошо), и тут понимаю что портится переменная цикла:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;renderElement&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;kids&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-          &lt;span class=&#34;nx&#34;&gt;renderElement&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;HEAP32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[((&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)]);&lt;/span&gt;
-          &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-    &lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;
-  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Еб вашу мать - эта i оказывается глобальная. Исправил на &lt;code&gt;for (var i=0; i&amp;lt;kids; i++)&lt;/code&gt; - все хорошо. Буду остерегаться. А еще говорили программируя на С можно легко выстрелить себе в ногу - тут с JS можно яйца себе в два счета отстрелить.&lt;/p&gt;
-
-&lt;p&gt;Результаты под тегом &lt;code&gt;day-3&lt;/code&gt; &lt;a href=&#34;https://github.com/platoff/faxma/tree/day-3&#34;&gt;https://github.com/platoff/faxma/tree/day-3&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Don&#39;t panic">
+
+<base href="https://platoff.github.io/">
+<title>
+
+
+     Ярило 
+
+</title>
+<link rel="canonical" href="https://platoff.github.io/blog/%D1%8F%D1%80%D0%B8%D0%BB%D0%BE/">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://platoff.github.io/css/reset.css">
+<link rel="stylesheet" href="https://platoff.github.io/css/pygments.css">
+<link rel="stylesheet" href="https://platoff.github.io/css/main.css">
+
+
+    <link rel="stylesheet" href="https://platoff.github.io/css/override.css">
+
+
+
+<link rel="shortcut icon"
+
+    href="https://platoff.github.io/img/leaf.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="ru">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            
+              <a href="https://platoff.github.io/"><img class="avatar" src="https://platoff.github.io/img/avatar.jpg" /></a>
+            
+            <a href="https://platoff.github.io/"><div class="name">Андрей Платов</div></a>
+            <nav>
+                <ul>
+                    <a href="https://platoff.github.io/blog/"><li>Журнал</li></a>
+                    <a href="https://platoff.github.io/about/"><li>Обо мне</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/platoff" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/platoff" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/platov" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+            <a href="mailto:andrey@xored.com">
+                <i class="icon ion-ios-email larger"></i>
+            </a>
+        
+
+        
+            <a href="https://platoff.github.io/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Ярило
+
+</div>
+
+                    <div class="initials"><a href="https://platoff.github.io/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Wed Jan 11 2017 12:47:07 CET">Jan 11, 2017</div>
+                    <div class="reading-time"><div class="middot"></div>2 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<p>Итак, <a href="https://platoff.github.io/blog/%D0%BF%D1%80%D0%BE-%D1%85%D0%BE%D1%80%D0%BE%D1%88%D0%B8%D1%85-%D0%B8-%D0%BF%D0%BE%D0%BB%D0%B5%D0%B7%D0%BD%D1%8B%D1%85-%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%81%D1%82%D0%BE%D0%B2/">я возвращаюсь к Ярило</a>. Как я уже писал - мне не нужны инновации, мне нужен некоторый скриптинг язык, требования к которому я уточню по ходу. Но часть требований уже сейчас понятна.</p>
+
+<h1 id="минимальные-требования">Минимальные требования</h1>
+
+<ul>
+<li><p>Я бы хотел <a href="https://en.wikipedia.org/wiki/Homoiconicity">Homoiconic Language</a>. Язык, который хорошо подходит для создания DSL-ей. В этом случае на ум сразу приходит LISP. Современным чуавкам еще придет на ум Julia, но ее корни тоже в LISP, вернее в Scheme. Кому то придет в голову TCL, и так далее. В общем Lisp &ndash; очевидный выбор, но ни одна моя попытка научиться легко программировать на Lisp не увенчалась успехом. Вместо Lisp я буду черпать вдохновение в <a href="https://en.wikipedia.org/wiki/Rebol">REBOL</a>, который так же похож на Lisp как и не похож. Этих сходств и различий достаточно для того чтобы я (лично) мог программировать на Rebol не испытывая сложностей, одновоременно чувствуя всю &ldquo;мощь&rdquo; Lisp.</p></li>
+
+<li><p>REPL-oriented. Хороший пример REPL-ориентированного языка &ndash; <a href="https://en.wikipedia.org/wiki/PowerShell">Microsoft PowerShell</a>, но и TCL, да и вообще все Homoiconic языки достаточно неполхи для REPL. Что нужно сделать с Rebol, чтобы добавить удобства как REPL инструмента, я посмотрю в процессе.</p></li>
+</ul>
+
+<h1 id="поехали">Поехали</h1>
+
+<p>Постараюсь обойтись без прошлых ошибок и достигнуть полезного результата с минимальными усилиями. Соответственно:</p>
+
+<p>Отказываюсь от собственного GC и эффективного представления данных. Буду пользоваться GC предоставленным Nim, а соответственно структуры данных должны быть понимаемыми Nim. Значит отказываемся от тегирования указателей и прочих фишек - наша память должна выглядить для Nim как родная. В этом есть свой плюс - interoperability с Nim, но и минус в потере эффективности из за некоторой несовместимости моделей (у меня динамическая, и, возможно, слабая типизация).</p>
+
+                <br>
+                <p><a href="https://platoff.github.io/blog/">Назад, к записям</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'platoff';
+    var disqus_identifier = 'https:\/\/platoff.github.io\/blog\/%D1%8F%D1%80%D0%B8%D0%BB%D0%BE\/';
+    var disqus_title = 'Ярило';
+    var disqus_url = 'https:\/\/platoff.github.io\/blog\/%D1%8F%D1%80%D0%B8%D0%BB%D0%BE\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+</body>
+</html>
+

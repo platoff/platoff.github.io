@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Don&#39;t panic">
+
+<base href="https://platoff.github.io/">
+<title>
+
+
+     А нужен ли язык? (Self-adjusting Computation) 
+
+</title>
+<link rel="canonical" href="https://platoff.github.io/blog/%D0%B0-%D0%BD%D1%83%D0%B6%D0%B5%D0%BD-%D0%BB%D0%B8-%D1%8F%D0%B7%D1%8B%D0%BA-self-adjusting-computation/">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://platoff.github.io/css/reset.css">
+<link rel="stylesheet" href="https://platoff.github.io/css/pygments.css">
+<link rel="stylesheet" href="https://platoff.github.io/css/main.css">
+
+
+    <link rel="stylesheet" href="https://platoff.github.io/css/override.css">
+
+
+
+<link rel="shortcut icon"
+
+    href="https://platoff.github.io/img/leaf.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="ru">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            
+              <a href="https://platoff.github.io/"><img class="avatar" src="https://platoff.github.io/img/avatar.jpg" /></a>
+            
+            <a href="https://platoff.github.io/"><div class="name">Андрей Платов</div></a>
+            <nav>
+                <ul>
+                    <a href="https://platoff.github.io/blog/"><li>Журнал</li></a>
+                    <a href="https://platoff.github.io/about/"><li>Обо мне</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/platoff" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/platoff" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/platov" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+            <a href="mailto:andrey@xored.com">
+                <i class="icon ion-ios-email larger"></i>
+            </a>
+        
+
+        
+            <a href="https://platoff.github.io/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    А нужен ли язык? (Self-adjusting Computation)
+
+</div>
+
+                    <div class="initials"><a href="https://platoff.github.io/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Thu Jan 12 2017 17:28:05 &#43;0200">Jan 12, 2017</div>
+                    <div class="reading-time"><div class="middot"></div>4 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                <p>Зачем мне свой язык? Я не собираюсь делать язык ради языка, возможно я смогу обойтись без самодельного языка - и это было бы хорошо. Но пока не очень получается.</p>
+
+<p>Много думая об управлении состоянием приложения (в общем про то что делают ваши всякие flux/redux и так далее, в которые я тоже не вдупляю) я все чаще и чаще попаю на статьи о self-adjusted или incremental computations. Сейчас у вас популярны всяческие RxJS и подобные, и честно скажу я сам зафанател от ориниального Rx (Microsoft) в году так 2008, но все же по этому пути я не пойду: Erich, создатель Rx сделал выдающуюся вещь показав реактивные (асинхронные) counterparts синхронным примитивам типа Enumeration, которые мы пользовали всю жизнь, и он гений.</p>
+
+<p>Но говорить о том что мои приложения будут основаны на Observables это то же что и говорить что мои приложения будут основаны на Enumerables - если первое звучит только модно, не более, то и первое и второе по сути - хуйня и не о чем. Это не отменяет возможность использования мной реактивных паттернов, но  еще раз скажу что сам по себе Rx никаких фундаментальных проблем не решит.</p>
+
+<p>Для тех кто впервые слышит о self-adjusting computation, го на сайт Umut Acar - <a href="http://www.umut-acar.org/self-adjusting-computation">сайт Umut Acar</a>, это чувак много лет занимающийся этим вопросом, там же можно найти некоторые статьи по теме.</p>
+
+<blockquote>
+<p>Self-adjusting computation refers to a model of computing where computations can automatically respond to changes in their data</p>
+</blockquote>
+
+<p>Я пролистал довольно много статей о self-adjusting computations, штука эта действительно выглядит мощно для UI приложений и не только, но и с первого взгляда не нова - грань между FRP и self-adjusted computation довольно тонка: и то и другое можно применять, и применяется для одних и тех же целей - декларативно описать вычисления и пойти курить оставив компьютер заниматься персчетом результатов при изменении входных данных (я сейчас очень грубо).</p>
+
+<p>И если мы стараемся не углубляться в разницу между тем и другим, то в мире JavaScript было и есть несколько продуктов близких к тому что мне хочется:</p>
+
+<ul>
+<li>Жемчужина - это, конечно, <a href="http://www.flapjax-lang.org">Flapjax</a>. Как это часто бывает с жемчужинами - они опережают время (готовность масс понять и принять), и умирают раньше чем стать тем, что пользует весь мир. Так было с объектно-ориентированными базами данных, да и много с чем. В общем очень достойная вещь и на пейпер flapjax есть много ссылок из вполне себе научных статек, жаль только то что самого flapjax уже нет.</li>
+<li>Есть на первый взгляд хороший выходец из практических кругов <a href="https://github.com/mobxjs/mobx">MobX</a> - они себя называют TFRP (transparent functional reactive programming), пусть будет так - о терминах я спорить не буду.</li>
+</ul>
+
+<p>Ну и куча других проектов на различных языках, которые гуглятся по словам reactive и functional, но так легко докатиться до <a href="http://elm-lang.org">Elm</a>. Я сознательно не упоминал Elm упоминая FRP. Elm - фантастическая вещь, лично для меня понятная и приятная тем, что у меня очень быстро получилось написать и запустить простенькую программу на Elm, чего я не смог сделать с помощю довольно мейнстримовых React, Cycle.js и подобное - количество пиздеца которое у меня не работает и количество обращений к гуглу бъет по моим нервам так что я бросаю это дело.</p>
+
+<p>Так, Elm можно считать эталоном FRP в вебе на данный момент. У проекта есть все - и сильный теоретический бекграунд (ссылок на <a href="http://people.seas.harvard.edu/~chong/pubs/pldi13-elm.pdf">Elm папер</a> не меньше чем на flapjax) и прекрасная реализация. Все же, несморя на то что я часто говорю о теоретических основах, я чел необразованный &ndash; просто практик. Со всем уважением относясь к мотивации создателя Elm не делать first-class сигналы (ее невозможно оспорить, по крайней мере такому неспециалисту как я) - я чувствую, что на практике мне Elm не хватит. Мне хочется решения, которое позволит мне сколь угодно сложно менять граф вычислений во время исполнения, а это как я понимаю - главная проблема всех FRP решений на данный момент. Поэтому мне очень хочется выйти за рамки FRP (в понимании Elm) и я хочу посмотреть в какие-то другие стороны. Отсюда MobX и self-adjusting computation.</p>
+
+                <br>
+                <p><a href="https://platoff.github.io/blog/">Назад, к записям</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'platoff';
+    var disqus_identifier = 'https:\/\/platoff.github.io\/blog\/%D0%B0-%D0%BD%D1%83%D0%B6%D0%B5%D0%BD-%D0%BB%D0%B8-%D1%8F%D0%B7%D1%8B%D0%BA-self-adjusting-computation\/';
+    var disqus_title = 'А нужен ли язык? (Self-adjusting Computation)';
+    var disqus_url = 'https:\/\/platoff.github.io\/blog\/%D0%B0-%D0%BD%D1%83%D0%B6%D0%B5%D0%BD-%D0%BB%D0%B8-%D1%8F%D0%B7%D1%8B%D0%BA-self-adjusting-computation\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+</body>
+</html>
+

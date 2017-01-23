@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Don&#39;t panic">
+
+<base href="https://platoff.github.io/">
+<title>
+
+
+     Осознавая Ярило 
+
+</title>
+<link rel="canonical" href="https://platoff.github.io/blog/%D0%BE%D1%81%D0%BE%D0%B7%D0%BD%D0%B0%D0%B2%D0%B0%D1%8F-%D1%8F%D1%80%D0%B8%D0%BB%D0%BE/">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://platoff.github.io/css/reset.css">
+<link rel="stylesheet" href="https://platoff.github.io/css/pygments.css">
+<link rel="stylesheet" href="https://platoff.github.io/css/main.css">
+
+
+    <link rel="stylesheet" href="https://platoff.github.io/css/override.css">
+
+
+
+<link rel="shortcut icon"
+
+    href="https://platoff.github.io/img/leaf.ico"
+
+>
+
+
+
+
+
+
+</head>
+
+
+<body lang="ru">
+
+<section class="header"> 
+    <div class="container">
+        <div class="content">
+            
+              <a href="https://platoff.github.io/"><img class="avatar" src="https://platoff.github.io/img/avatar.jpg" /></a>
+            
+            <a href="https://platoff.github.io/"><div class="name">Андрей Платов</div></a>
+            <nav>
+                <ul>
+                    <a href="https://platoff.github.io/blog/"><li>Журнал</li></a>
+                    <a href="https://platoff.github.io/about/"><li>Обо мне</li></a>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+
+        
+            <a href="//github.com/platoff" target="_blank">
+                <i class="icon ion-social-github"></i>
+            </a>
+        
+        
+        
+            <a href="//twitter.com/platoff" target="_blank">
+                <i class="icon ion-social-twitter"></i>
+            </a>
+        
+
+        
+            <a href="//linkedin.com/in/platov" target="_blank">
+                <i class="icon ion-social-linkedin"></i>
+            </a>
+        
+
+        
+
+        
+
+        
+            <a href="mailto:andrey@xored.com">
+                <i class="icon ion-ios-email larger"></i>
+            </a>
+        
+
+        
+            <a href="https://platoff.github.io/index.xml">
+                <i class="icon ion-social-rss larger"></i>
+            </a>
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Осознавая Ярило
+
+</div>
+
+                    <div class="initials"><a href="https://platoff.github.io/"></a></div>
+                </div>
+                <div class="meta">
+                    <div class="date" title="Sun Jan 22 2017 11:51:09 CET">Jan 22, 2017</div>
+                    <div class="reading-time"><div class="middot"></div>4 minutes read</div>
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<p>Две недели пытался в муках родить <a href="https://platoff.github.io/blog/%D1%8F%D1%80%D0%B8%D0%BB%D0%BE/">Ярило</a>. Хоть я и обещал себе сделать все проще, схематично, и &ldquo;прототипично&rdquo;, но руки не слушались. Выкинув несколько вариантов модели данных, я даже потратил несколько дней портируя на Nim замечательную реализацию языка <a href="http://wren.io">Wren</a>, от <a href="http://journal.stuffwithstuff.com">Bob Nystrom</a> - мне показалось что Ярило хорошо ляжет на его модель, но, потратив эти дни, я почувствовал что опять двигаюсь в какую-то неправильную сторону.</p>
+
+<p>В результате я возвращаюсь примерно к тому же, что уже имел прошедшим летом в качестве прообраза <a href="https://github.com/pragmagic/yarilo">Ярило</a>, но за эти две недели я родил одну важную мысль. Мысль кажется простой и с первого взгляда туповатой, но мне, по крайней мере в данный момент, она мне кажется важнейшей и ключевой: <strong>сборщика мусора не будет!</strong>.</p>
+
+<p>Эта мысль у меня в голове расставила все на свои места. Чего я хочу? <a href="https://platoff.github.io/blog/%D1%85%D0%BE%D1%87%D1%83-%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C-%D0%B2%D0%B5%D0%B1-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F/">Я хочу делать Web-приложения</a>, и под веб-приложениями я в первую очередь понимаю UI. Что такое UI? Это дерево. <strong>Дерево, блять!</strong> Де-ре-во, а дерево &ndash; это не граф. Какое замечательное свойство есть у дерева? В нем нет циклов, в нем (концептуально) на каждый элемент есть только <strong>одна ссылка</strong>.</p>
+
+<p>Что такое state приложения в понимании большинства современных фреймворков? Это <strong>дерево</strong>. Его так и называют - дерево состояния. Что такое UI приложение - это преобразование одного дерева в другое. Грубо говоря это то, чем пытается заниматься <a href="https://facebook.github.io/react/">React.js</a> и его друзья. Этот фундаментальный взгляд на UI приложение я не буду оспаривать, я с ним согласен на 100%. Но я хочу <a href="https://platoff.github.io/blog/%D0%B0-%D0%BD%D1%83%D0%B6%D0%B5%D0%BD-%D0%BB%D0%B8-%D1%8F%D0%B7%D1%8B%D0%BA-self-adjusting-computation/">большего</a></p>
+
+<p>Мне нужен механизм (это может быть язык программирования) описания того как одни части дерева преобразуются в другие части. В моих фантазиях, такие преобразования могут зависить друг от друга. Например новая нода в дереве состояний порождает новую ноду в дом), а та, в свою очередь порождает еще одну ноду DOM (например с переводом текста, в случае если в некотором месте дерева состояния включена опция трансляции). И так далее.</p>
+
+<p>Разницы между типами узлов дерева быть не должно. В том смысле что ноды состояния приложения, ноды описывающие DOM, или ноды хранящие трансиентные данные выглядят для приложения единообразно и я могу преобразовать что хочу во что хочу. Никто не мешает мне породить из UI некоторое состояние а потом его опять трансформировать в UI.</p>
+
+<p>И самое важное: <strong>я не хочу задумываться о деталях</strong>. Состояние может быть огромным (по размеру), но я как пользователь должен иметь единообразый доступ к нему всему. Точно так же UI - я даже не должен знать что некоторая нода - это UI элемент. Я лишь хочу описать правила транформации и запустить приложение.</p>
+
+<h1 id="сборка-мусора-и-linear-types">Сборка мусора и Linear Types</h1>
+
+<p>Итак, мысль о том что сборка мусора не нужна и что наше приложение &ndash; дерево, упорядочила все у меня в голове и несколько повлияло на дизайн языка. К сожалению, или к счастью, это не будет язык общего назначения. Концептуально &ndash; все данные храняться в дереве, и только в дереве. Это значит, что если нода A и нода B не может иметь общего ребенка C. Даже если С ноды B создается из C ноды A в процессе трансформации &ndash; то создасться копия C. Несомненно надо предусмотреть оптимизацию для immutable данных - в этом случае копия не имеет смысла, но опять же концептуально пользователь работает с деревом и только с деревом &ndash; копируются ли immutable данные под капотом или нет &ndash; не должно волновать пользователя.</p>
+
+<p>Я конечно погуглил на тему этой деревянной идеи - ничего толком не нашел, кроме <a href="https://en.wikipedia.org/wiki/Substructural_type_system#Linear_type_systems">Linear Types</a> - это не совсем мой случай, а более общий, когда на объект может существовать одна и только одна ссылка. По теме не так много статей, и в основном недоступная мне математика о Linear Logic, но есть очень интересные стайки от <a href="http://www.pipeline.com/~hbaker1/home.html">Henry Baker</a>, например о <a href="http://www.pipeline.com/~hbaker1/LinearLisp.html">Linear Lisp</a> и стековых машинах в этом контексте <a href="http://www.pipeline.com/~hbaker1/ForthStack.html">Linear Logic and Permutation Stacks</a>.</p>
+
+<p>Этот путь (в Linear Logic) слишком умный для меня, я лишь буду руководствоваться правилом дерева. Технически, на ноду придется ссылаться не только из родительской ноды но и из обработчиков событий, процессов транформации, и так далее. Но еще раз: такие ссылки &ndash; это забота движка. Концептуально данные &ndash; дерево. Убили ноду &ndash; все, кирдык, если кто-то ее слушал и во что-то трансформировал, то и ему кирдык &ndash; трансформировался в ноль (хотя теоретически он может трансформировать &ldquo;нулевую&rdquo; ноду во что-то осмысленное).</p>
+
+                <br>
+                <p><a href="https://platoff.github.io/blog/">Назад, к записям</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'platoff';
+    var disqus_identifier = 'https:\/\/platoff.github.io\/blog\/%D0%BE%D1%81%D0%BE%D0%B7%D0%BD%D0%B0%D0%B2%D0%B0%D1%8F-%D1%8F%D1%80%D0%B8%D0%BB%D0%BE\/';
+    var disqus_title = 'Осознавая Ярило';
+    var disqus_url = 'https:\/\/platoff.github.io\/blog\/%D0%BE%D1%81%D0%BE%D0%B7%D0%BD%D0%B0%D0%B2%D0%B0%D1%8F-%D1%8F%D1%80%D0%B8%D0%BB%D0%BE\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+</body>
+</html>
+
